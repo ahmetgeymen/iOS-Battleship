@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA592EEC1728A72200ED7E22 /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA592EEB1728A72200ED7E22 /* JoinViewController.m */; };
+		BA844B5C172C3FAB00CE53D6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA844B5B172C3FAB00CE53D6 /* GameKit.framework */; };
+		BA844B69172C643300CE53D6 /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B66172C643300CE53D6 /* MatchmakingClient.m */; };
+		BA844B6A172C643300CE53D6 /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B68172C643300CE53D6 /* MatchmakingServer.m */; };
+		BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */; };
 		BAFFD94E1722122500B49BF2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD94D1722122500B49BF2 /* UIKit.framework */; };
 		BAFFD9501722122500B49BF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD94F1722122500B49BF2 /* Foundation.framework */; };
 		BAFFD9521722122500B49BF2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD9511722122500B49BF2 /* CoreGraphics.framework */; };
@@ -16,9 +21,20 @@
 		BAFFD9601722122500B49BF2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BAFFD95F1722122500B49BF2 /* Default.png */; };
 		BAFFD9621722122500B49BF2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAFFD9611722122500B49BF2 /* Default@2x.png */; };
 		BAFFD9641722122500B49BF2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAFFD9631722122500B49BF2 /* Default-568h@2x.png */; };
+		BAFFD96E1722159600B49BF2 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAFFD96C1722159600B49BF2 /* Storyboard.storyboard */; };
+		BAFFD9711722F36500B49BF2 /* HostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAFFD9701722F36500B49BF2 /* HostViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA592EEA1728A72200ED7E22 /* JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinViewController.h; sourceTree = "<group>"; };
+		BA592EEB1728A72200ED7E22 /* JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinViewController.m; sourceTree = "<group>"; };
+		BA844B5B172C3FAB00CE53D6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		BA844B65172C643300CE53D6 /* MatchmakingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingClient.h; sourceTree = "<group>"; };
+		BA844B66172C643300CE53D6 /* MatchmakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingClient.m; sourceTree = "<group>"; };
+		BA844B67172C643300CE53D6 /* MatchmakingServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingServer.h; sourceTree = "<group>"; };
+		BA844B68172C643300CE53D6 /* MatchmakingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingServer.m; sourceTree = "<group>"; };
+		BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
+		BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
 		BAFFD94A1722122500B49BF2 /* Battleship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAFFD94D1722122500B49BF2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BAFFD94F1722122500B49BF2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,6 +48,9 @@
 		BAFFD95F1722122500B49BF2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BAFFD9611722122500B49BF2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		BAFFD9631722122500B49BF2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BAFFD96D1722159600B49BF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
+		BAFFD96F1722F36500B49BF2 /* HostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostViewController.h; sourceTree = "<group>"; };
+		BAFFD9701722F36500B49BF2 /* HostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,12 +61,37 @@
 				BAFFD94E1722122500B49BF2 /* UIKit.framework in Frameworks */,
 				BAFFD9501722122500B49BF2 /* Foundation.framework in Frameworks */,
 				BAFFD9521722122500B49BF2 /* CoreGraphics.framework in Frameworks */,
+				BA844B5C172C3FAB00CE53D6 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA844B63172C63F800CE53D6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				BA844B65172C643300CE53D6 /* MatchmakingClient.h */,
+				BA844B66172C643300CE53D6 /* MatchmakingClient.m */,
+				BA844B67172C643300CE53D6 /* MatchmakingServer.h */,
+				BA844B68172C643300CE53D6 /* MatchmakingServer.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		BA844B64172C640F00CE53D6 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BA592EEA1728A72200ED7E22 /* JoinViewController.h */,
+				BA592EEB1728A72200ED7E22 /* JoinViewController.m */,
+				BAFFD96F1722F36500B49BF2 /* HostViewController.h */,
+				BAFFD9701722F36500B49BF2 /* HostViewController.m */,
+				BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */,
+				BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		BAFFD9411722122500B49BF2 = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +115,7 @@
 				BAFFD94D1722122500B49BF2 /* UIKit.framework */,
 				BAFFD94F1722122500B49BF2 /* Foundation.framework */,
 				BAFFD9511722122500B49BF2 /* CoreGraphics.framework */,
+				BA844B5B172C3FAB00CE53D6 /* GameKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -78,8 +123,11 @@
 		BAFFD9531722122500B49BF2 /* Battleship */ = {
 			isa = PBXGroup;
 			children = (
+				BAFFD96C1722159600B49BF2 /* Storyboard.storyboard */,
 				BAFFD95C1722122500B49BF2 /* AppDelegate.h */,
 				BAFFD95D1722122500B49BF2 /* AppDelegate.m */,
+				BA844B64172C640F00CE53D6 /* View Controllers */,
+				BA844B63172C63F800CE53D6 /* Networking */,
 				BAFFD9541722122500B49BF2 /* Supporting Files */,
 			);
 			path = Battleship;
@@ -154,6 +202,7 @@
 				BAFFD9601722122500B49BF2 /* Default.png in Resources */,
 				BAFFD9621722122500B49BF2 /* Default@2x.png in Resources */,
 				BAFFD9641722122500B49BF2 /* Default-568h@2x.png in Resources */,
+				BAFFD96E1722159600B49BF2 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +215,11 @@
 			files = (
 				BAFFD95A1722122500B49BF2 /* main.m in Sources */,
 				BAFFD95E1722122500B49BF2 /* AppDelegate.m in Sources */,
+				BAFFD9711722F36500B49BF2 /* HostViewController.m in Sources */,
+				BA592EEC1728A72200ED7E22 /* JoinViewController.m in Sources */,
+				BA844B69172C643300CE53D6 /* MatchmakingClient.m in Sources */,
+				BA844B6A172C643300CE53D6 /* MatchmakingServer.m in Sources */,
+				BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +232,14 @@
 				BAFFD9571722122500B49BF2 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BAFFD96C1722159600B49BF2 /* Storyboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BAFFD96D1722159600B49BF2 /* en */,
+			);
+			name = Storyboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -247,6 +309,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Battleship/Battleship-Prefix.pch";
 				INFOPLIST_FILE = "Battleship/Battleship-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -258,6 +321,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Battleship/Battleship-Prefix.pch";
 				INFOPLIST_FILE = "Battleship/Battleship-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -282,6 +346,7 @@
 				BAFFD9691722122500B49BF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

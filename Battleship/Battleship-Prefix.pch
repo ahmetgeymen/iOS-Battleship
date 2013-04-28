@@ -11,4 +11,17 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <GameKit/GameKit.h>
 #endif
+
+// The name of the GameKit session.
+#define SESSION_ID @"Battleship"
+
+typedef enum
+{
+	QuitReasonNoNetwork,          // no Wi-Fi or Bluetooth
+	QuitReasonConnectionDropped,  // communication failure with server
+	QuitReasonUserQuit,           // the user terminated the connection
+	QuitReasonServerQuit,         // the server quit the game (on purpose)
+}
+QuitReason;
