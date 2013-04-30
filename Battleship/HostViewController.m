@@ -47,6 +47,18 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    // Detecting back button
+    if (![[[self navigationController] viewControllers] containsObject:self]) {
+        _quitReason = QuitReasonUserQuit;
+        [_matchmakingServer endSession];
+//        [self.delegate hostViewControllerDidCancel:self];
+    }
+    
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -54,23 +66,77 @@
 }
 
 
+#pragma mark - *** IBAction ***
+
+- (IBAction)startAction:(id)sender
+{
+	if (_matchmakingServer != nil && [_matchmakingServer connectedClientCount] > 0)
+	{
+//		NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//		if ([name length] == 0)
+		NSString *name = _matchmakingServer.session.displayName;
+        
+		[_matchmakingServer stopAcceptingConnections];
+        
+		[self.delegate hostViewController:self startGameWithSession:_matchmakingServer.session playerName:name clients:_matchmakingServer.connectedClients];
+	}
+}
+
+
+#pragma mark - *** UITableViewDataSource ***
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	if (_matchmakingServer != nil) {
+        [[self startButton] setEnabled:YES];
+        return [_matchmakingServer connectedClientCount];
+    }
+	else {
+        [[self startButton] setEnabled:NO];
+        return 0;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	static NSString *MyIdentifier = @"MyReuseIdentifier";
+    
+	UITableViewCell *tableViewCell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	if (tableViewCell == nil)
+		tableViewCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+    
+	NSString *peerID = [_matchmakingServer peerIDForConnectedClientAtIndex:indexPath.row];
+	[[tableViewCell textLabel] setText:[_matchmakingServer displayNameForPeerID:peerID]];
+    
+	return tableViewCell;
+}
+
+
+#pragma mark - *** UITableViewDelegate ***
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return nil;
+}
+
+
 #pragma mark - *** MatchmakingServerDelegate ***
 
 - (void)matchmakingServer:(MatchmakingServer *)server clientDidConnect:(NSString *)peerID
 {
-//	[self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 - (void)matchmakingServer:(MatchmakingServer *)server clientDidDisconnect:(NSString *)peerID
 {
-//	[self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 - (void)matchmakingServerSessionDidEnd:(MatchmakingServer *)server
 {
 	_matchmakingServer.delegate = nil;
 	_matchmakingServer = nil;
-//	[self.tableView reloadData];
+	[self.tableView reloadData];
 	[self.delegate hostViewController:self didEndSessionWithReason:_quitReason];
 }
 

@@ -20,8 +20,13 @@
 @end
 
 
-@interface HostViewController : UIViewController <MatchmakingServerDelegate>
+@interface HostViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MatchmakingServerDelegate>
 
 @property (nonatomic, weak) id <HostViewControllerDelegate> delegate;
+
+@property (nonatomic, strong) IBOutlet UITableView  *tableView;
+@property (nonatomic, strong) IBOutlet UIButton     *startButton;
+
+- (IBAction)startAction:(id)sender;
 
 @end

@@ -24,6 +24,7 @@
 
 @property (nonatomic, weak) id <JoinViewControllerDelegate> delegate;
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UITableView  *tableView;
+@property (nonatomic, strong) IBOutlet UIView       *waitView;
 
 @end

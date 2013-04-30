@@ -37,6 +37,8 @@
 {
     [super viewDidAppear:animated];
     
+    [[self view] sendSubviewToBack:[self waitView]];
+    
     if (_matchmakingClient == nil) {
         
         _quitReason = QuitReasonConnectionDropped;
@@ -53,6 +55,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    // Detecting back button
+    if (![[[self navigationController] viewControllers] containsObject:self]) {
+        _quitReason = QuitReasonUserQuit;
+        [_matchmakingClient disconnectFromServer];
+//        [self.delegate joinViewControllerDidCancel:self];
+    }
+    
+    [super viewWillDisappear:animated];
 }
 
 
@@ -95,7 +109,8 @@
     
 	if (_matchmakingClient != nil)
 	{
-//		[self.view addSubview:self.waitView];
+		[[self view] addSubview:[self waitView]];
+        [[self view] bringSubviewToFront:[self waitView]];
         
 		NSString *peerID = [_matchmakingClient peerIDForAvailableServerAtIndex:indexPath.row];
 		[_matchmakingClient connectToServerWithPeerID:peerID];

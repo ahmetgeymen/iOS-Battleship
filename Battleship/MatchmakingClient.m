@@ -45,6 +45,7 @@ ClientState;
 		_availableServers = [NSMutableArray arrayWithCapacity:10];
 
 		_session = [[GKSession alloc] initWithSessionID:sessionID displayName:nil sessionMode:GKSessionModeClient];
+        [_session setDisconnectTimeout:60];
 		_session.delegate = self;
 		_session.available = YES;
 	}
