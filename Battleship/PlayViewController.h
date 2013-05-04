@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "JoinViewController.h"
 #import "HostViewController.h"
+#import "GameViewController.h"
 
-@interface PlayViewController : UIViewController <JoinViewControllerDelegate, HostViewControllerDelegate>
+@interface PlayViewController : UIViewController <JoinViewControllerDelegate, HostViewControllerDelegate, GameViewControllerDelegate>
 
 @end

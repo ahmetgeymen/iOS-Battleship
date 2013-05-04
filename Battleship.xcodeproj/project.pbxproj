@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA15438E173011A500608ADC /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA15438D173011A400608ADC /* GameViewController.m */; };
+		BA1543911730130F00608ADC /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1543901730130F00608ADC /* Game.m */; };
 		BA592EEC1728A72200ED7E22 /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA592EEB1728A72200ED7E22 /* JoinViewController.m */; };
 		BA844B5C172C3FAB00CE53D6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA844B5B172C3FAB00CE53D6 /* GameKit.framework */; };
 		BA844B69172C643300CE53D6 /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B66172C643300CE53D6 /* MatchmakingClient.m */; };
 		BA844B6A172C643300CE53D6 /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B68172C643300CE53D6 /* MatchmakingServer.m */; };
 		BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */; };
+		BAC368BB1732519300B20998 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368BA1732519300B20998 /* Player.m */; };
+		BAC368C61732A05400B20998 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368C51732A05400B20998 /* Packet.m */; };
 		BAFFD94E1722122500B49BF2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD94D1722122500B49BF2 /* UIKit.framework */; };
 		BAFFD9501722122500B49BF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD94F1722122500B49BF2 /* Foundation.framework */; };
 		BAFFD9521722122500B49BF2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD9511722122500B49BF2 /* CoreGraphics.framework */; };
@@ -26,6 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA15438C173011A400608ADC /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		BA15438D173011A400608ADC /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		BA15438F1730130F00608ADC /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		BA1543901730130F00608ADC /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		BA592EEA1728A72200ED7E22 /* JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinViewController.h; sourceTree = "<group>"; };
 		BA592EEB1728A72200ED7E22 /* JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinViewController.m; sourceTree = "<group>"; };
 		BA844B5B172C3FAB00CE53D6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -35,6 +43,10 @@
 		BA844B68172C643300CE53D6 /* MatchmakingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingServer.m; sourceTree = "<group>"; };
 		BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
+		BAC368B91732519300B20998 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		BAC368BA1732519300B20998 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		BAC368C41732A05400B20998 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
+		BAC368C51732A05400B20998 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Packet.m; sourceTree = "<group>"; };
 		BAFFD94A1722122500B49BF2 /* Battleship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battleship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAFFD94D1722122500B49BF2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BAFFD94F1722122500B49BF2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,6 +80,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA15438B17300FFB00608ADC /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				BA15438F1730130F00608ADC /* Game.h */,
+				BA1543901730130F00608ADC /* Game.m */,
+				BAC368B91732519300B20998 /* Player.h */,
+				BAC368BA1732519300B20998 /* Player.m */,
+			);
+			name = "Data Model";
+			sourceTree = "<group>";
+		};
 		BA844B63172C63F800CE53D6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +98,8 @@
 				BA844B66172C643300CE53D6 /* MatchmakingClient.m */,
 				BA844B67172C643300CE53D6 /* MatchmakingServer.h */,
 				BA844B68172C643300CE53D6 /* MatchmakingServer.m */,
+				BAC368C41732A05400B20998 /* Packet.h */,
+				BAC368C51732A05400B20998 /* Packet.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -88,6 +113,8 @@
 				BAFFD9701722F36500B49BF2 /* HostViewController.m */,
 				BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */,
 				BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */,
+				BA15438C173011A400608ADC /* GameViewController.h */,
+				BA15438D173011A400608ADC /* GameViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -126,6 +153,7 @@
 				BAFFD96C1722159600B49BF2 /* Storyboard.storyboard */,
 				BAFFD95C1722122500B49BF2 /* AppDelegate.h */,
 				BAFFD95D1722122500B49BF2 /* AppDelegate.m */,
+				BA15438B17300FFB00608ADC /* Data Model */,
 				BA844B64172C640F00CE53D6 /* View Controllers */,
 				BA844B63172C63F800CE53D6 /* Networking */,
 				BAFFD9541722122500B49BF2 /* Supporting Files */,
@@ -220,6 +248,10 @@
 				BA844B69172C643300CE53D6 /* MatchmakingClient.m in Sources */,
 				BA844B6A172C643300CE53D6 /* MatchmakingServer.m in Sources */,
 				BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */,
+				BA15438E173011A500608ADC /* GameViewController.m in Sources */,
+				BA1543911730130F00608ADC /* Game.m in Sources */,
+				BAC368BB1732519300B20998 /* Player.m in Sources */,
+				BAC368C61732A05400B20998 /* Packet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

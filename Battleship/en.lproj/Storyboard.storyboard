@@ -180,14 +180,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyReuseIdentifier" textLabel="wah-HU-KF0" style="IBUITableViewCellStyleDefault" id="x4u-mG-H2W">
-                                                <rect key="frame" x="0.0" y="22" width="400" height="44"/>
+                                                <rect key="frame" x="0.0" y="22" width="401" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="400" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="401" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wah-HU-KF0">
-                                                            <rect key="frame" x="10" y="0.0" width="380" height="43"/>
+                                                            <rect key="frame" x="10" y="0.0" width="381" height="43"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -232,12 +232,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="e0y-JM-apm" firstAttribute="top" secondItem="rfE-I6-YD7" secondAttribute="top" constant="167" id="CoX-KP-zqu"/>
-                            <constraint firstItem="acT-J5-8BQ" firstAttribute="centerX" secondItem="rfE-I6-YD7" secondAttribute="centerX" type="default" id="Hq9-V4-3kR"/>
-                            <constraint firstItem="acT-J5-8BQ" firstAttribute="centerX" secondItem="e0y-JM-apm" secondAttribute="centerX" type="default" id="QCV-5T-ELS"/>
+                            <constraint firstItem="e0y-JM-apm" firstAttribute="centerX" secondItem="acT-J5-8BQ" secondAttribute="centerX" type="default" id="IJ8-LT-5yU"/>
                             <constraint firstItem="srd-UI-1yZ" firstAttribute="top" secondItem="rfE-I6-YD7" secondAttribute="top" constant="101" id="RBh-hr-udN"/>
                             <constraint firstItem="srd-UI-1yZ" firstAttribute="leading" secondItem="rfE-I6-YD7" secondAttribute="leading" constant="312" id="T4o-ZQ-auy"/>
                             <constraint firstItem="srd-UI-1yZ" firstAttribute="leading" secondItem="e0y-JM-apm" secondAttribute="leading" type="default" id="YVu-js-zLB"/>
                             <constraint firstAttribute="bottom" secondItem="e0y-JM-apm" secondAttribute="bottom" constant="277" id="hyC-wI-GyT"/>
+                            <constraint firstItem="acT-J5-8BQ" firstAttribute="centerX" secondItem="rfE-I6-YD7" secondAttribute="centerX" type="default" id="koU-ii-u0F"/>
                             <constraint firstAttribute="bottom" secondItem="acT-J5-8BQ" secondAttribute="bottom" constant="113" id="oxr-5E-rt3"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -251,6 +251,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQY-nY-77B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="366" y="-2495"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="oAx-3N-0Tb">
+            <objects>
+                <viewController storyboardIdentifier="GameViewController" id="8q1-W8-sOs" customClass="GameViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hwg-Vo-GYF">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHU-w5-oiM">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="700" id="b14-F8-d3f"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hHU-w5-oiM" firstAttribute="top" secondItem="hwg-Vo-GYF" secondAttribute="top" constant="363" id="PVf-RR-zuU"/>
+                            <constraint firstItem="hHU-w5-oiM" firstAttribute="centerX" secondItem="hwg-Vo-GYF" secondAttribute="centerX" type="default" id="xat-VY-m18"/>
+                        </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="centerLabel" destination="hHU-w5-oiM" id="dyW-3A-P90"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0W1-sN-fmt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2040" y="-1995"/>
         </scene>
         <!--View Controller - Join-->
         <scene sceneID="JOM-iJ-2iG">
@@ -356,9 +389,16 @@
         </scene>
     </scenes>
     <classes>
+        <class className="GameViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GameViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="centerLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="HostViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HostViewController.h"/>
             <relationships>
+                <relationship kind="action" name="back:"/>
                 <relationship kind="action" name="startAction:"/>
                 <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -367,6 +407,7 @@
         <class className="JoinViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JoinViewController.h"/>
             <relationships>
+                <relationship kind="action" name="back:"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="waitView" candidateClass="UIView"/>
             </relationships>

@@ -11,15 +11,15 @@
 #import "AppDelegate.h"
 
 @interface HostViewController ()
-{
-    MatchmakingServer *_matchmakingServer;
-	QuitReason _quitReason;
-}
 
 @end
 
 @implementation HostViewController
-
+{
+    MatchmakingServer *_matchmakingServer;
+    QuitReason _quitReason;
+}
+    
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,11 +50,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     // Detecting back button
-    if (![[[self navigationController] viewControllers] containsObject:self]) {
-        _quitReason = QuitReasonUserQuit;
-        [_matchmakingServer endSession];
-//        [self.delegate hostViewControllerDidCancel:self];
-    }
+//    if ([[[self navigationController] viewControllers] indexOfObject:self] == NSNotFound) {
+//      _quitReason = QuitReasonUserQuit;
+//      [_matchmakingServer endSession];
+//      [self.delegate hostViewControllerDidCancel:self];
+//    }
     
     [super viewWillDisappear:animated];
 }
@@ -68,7 +68,7 @@
 
 #pragma mark - *** IBAction ***
 
-- (IBAction)startAction:(id)sender
+- (void)startAction:(id)sender
 {
 	if (_matchmakingServer != nil && [_matchmakingServer connectedClientCount] > 0)
 	{

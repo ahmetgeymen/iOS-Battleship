@@ -51,6 +51,23 @@
 }
 
 
+#pragma mark - *** Starting Game ***
+
+- (void)startGameWithBlock:(void (^)(Game *))block
+{
+    GameViewController *gameViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"GameViewController"];
+	gameViewController.delegate = self;
+    
+	[self presentViewController:gameViewController animated:NO completion:^
+     {
+         Game *game = [[Game alloc] init];
+         gameViewController.game = game;
+         game.delegate = gameViewController;
+         block(game);
+     }];
+}
+
+
 #pragma mark - *** Alerts ***
 
 - (void)showNoNetworkAlert
@@ -103,20 +120,25 @@
 	}
 }
 
-//- (void)joinViewController:(JoinViewController *)controller startGameWithSession:(GKSession *)session playerName:(NSString *)name server:(NSString *)peerID
-//{
+- (void)joinViewController:(JoinViewController *)controller startGameWithSession:(GKSession *)session playerName:(NSString *)name server:(NSString *)peerID
+{
 //	_performAnimations = NO;
-//    
+    
 //	[self dismissViewControllerAnimated:NO completion:^
 //     {
-//         _performAnimations = YES;
+////         _performAnimations = YES;
 //         
 //         [self startGameWithBlock:^(Game *game)
 //          {
 //              [game startClientGameWithSession:session playerName:name server:peerID];
 //          }];
 //     }];
-//}
+    
+    [self startGameWithBlock:^(Game *game)
+     {
+         [game startClientGameWithSession:session playerName:name server:peerID];
+     }];
+}
 
 
 
@@ -135,20 +157,40 @@
 	}
 }
 
-//- (void)hostViewController:(HostViewController *)controller startGameWithSession:(GKSession *)session playerName:(NSString *)name clients:(NSArray *)clients
-//{
+- (void)hostViewController:(HostViewController *)controller startGameWithSession:(GKSession *)session playerName:(NSString *)name clients:(NSArray *)clients
+{
 //	_performAnimations = NO;
-//    
+    
 //	[self dismissViewControllerAnimated:NO completion:^
 //     {
-//         _performAnimations = YES;
+////         _performAnimations = YES;
 //         
 //         [self startGameWithBlock:^(Game *game)
 //          {
 //              [game startServerGameWithSession:session playerName:name clients:clients];
 //          }];
 //     }];
-//}
+    
+    [self startGameWithBlock:^(Game *game)
+     {
+         [game startServerGameWithSession:session playerName:name clients:clients];
+     }];
+}
+
+
+#pragma mark - *** GameViewControllerDelegate ***
+
+- (void)gameViewController:(GameViewController *)controller didQuitWithReason:(QuitReason)reason
+{
+    
+	[self dismissViewControllerAnimated:NO completion:^
+     {
+         if (reason == QuitReasonConnectionDropped)
+         {
+             [self showDisconnectedAlert];
+         }
+     }];
+}
 
 
 

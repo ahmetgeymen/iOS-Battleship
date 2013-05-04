@@ -9,14 +9,14 @@
 #import "JoinViewController.h"
 
 @interface JoinViewController ()
-{
-    MatchmakingClient *_matchmakingClient;
-	QuitReason _quitReason;    
-}
 
 @end
 
 @implementation JoinViewController
+{
+    MatchmakingClient *_matchmakingClient;
+    QuitReason _quitReason;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,11 +60,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     // Detecting back button
-    if (![[[self navigationController] viewControllers] containsObject:self]) {
-        _quitReason = QuitReasonUserQuit;
-        [_matchmakingClient disconnectFromServer];
+//    if (![[[self navigationController] viewControllers] containsObject:self]) {
+//        _quitReason = QuitReasonUserQuit;
+//        [_matchmakingClient disconnectFromServer];
 //        [self.delegate joinViewControllerDidCancel:self];
-    }
+//    }
     
     [super viewWillDisappear:animated];
 }
