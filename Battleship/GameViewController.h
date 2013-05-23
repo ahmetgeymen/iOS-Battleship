@@ -21,9 +21,14 @@
 
 @interface GameViewController : UIViewController <GameDelegate>
 
-@property (nonatomic, weak) IBOutlet UILabel *centerLabel;
+@property (nonatomic, weak) IBOutlet UILabel        *centerLabel;
+@property (nonatomic, weak) IBOutlet UITextField    *coordTextField;
+@property (nonatomic, weak) IBOutlet UIButton       *readyButton;
 
 @property (nonatomic, weak) id <GameViewControllerDelegate> delegate;
 @property (nonatomic, strong) Game *game;
+
+- (IBAction)pressReadyButton:(id)sender;
+- (IBAction)pressQuitButton:(id)sender;
 
 @end

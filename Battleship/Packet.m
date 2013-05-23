@@ -18,7 +18,9 @@
     
     Packet *packet = [Packet packetWithType:packetType];
     
-    [packet setPacketNumber:[[dictionary objectForKey:@"PacketNumber"] intValue]];
+    [packet setPacketNumber:[[dictionary    objectForKey:@"PacketNumber"] intValue]];
+    [packet setPayload:     [dictionary     objectForKey:@"PacketPayload"]];
+    [packet setSendReliably:[[dictionary    objectForKey:@"SendReliably"] boolValue]];
     
     return packet;
 }

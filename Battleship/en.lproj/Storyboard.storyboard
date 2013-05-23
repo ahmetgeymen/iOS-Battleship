@@ -268,17 +268,61 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="phI-h5-XcV">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="136" id="5Jd-9c-PD2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VO9-Iz-MyK">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressReadyButton:" destination="8q1-W8-sOs" eventType="touchUpInside" id="ZXd-Lo-zqR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSZ-FM-DH0">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="73" id="3FP-gJ-dl9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Quit">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressQuitButton:" destination="8q1-W8-sOs" eventType="touchUpInside" id="rzz-99-aBI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VO9-Iz-MyK" firstAttribute="centerX" secondItem="phI-h5-XcV" secondAttribute="centerX" type="default" id="22F-bN-9H6"/>
+                            <constraint firstItem="VO9-Iz-MyK" firstAttribute="centerX" secondItem="hHU-w5-oiM" secondAttribute="centerX" type="default" id="3et-aD-bIP"/>
+                            <constraint firstItem="kSZ-FM-DH0" firstAttribute="top" secondItem="hwg-Vo-GYF" secondAttribute="top" constant="20" symbolic="YES" type="default" id="5Rn-3U-2gZ"/>
+                            <constraint firstItem="kSZ-FM-DH0" firstAttribute="leading" secondItem="hwg-Vo-GYF" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="ALo-Q3-jYI"/>
                             <constraint firstItem="hHU-w5-oiM" firstAttribute="top" secondItem="hwg-Vo-GYF" secondAttribute="top" constant="363" id="PVf-RR-zuU"/>
-                            <constraint firstItem="hHU-w5-oiM" firstAttribute="centerX" secondItem="hwg-Vo-GYF" secondAttribute="centerX" type="default" id="xat-VY-m18"/>
+                            <constraint firstItem="VO9-Iz-MyK" firstAttribute="top" secondItem="hwg-Vo-GYF" secondAttribute="top" constant="169" id="WWc-wL-1ag"/>
+                            <constraint firstItem="phI-h5-XcV" firstAttribute="top" secondItem="hwg-Vo-GYF" secondAttribute="top" constant="117" id="mcb-Dx-YkQ"/>
+                            <constraint firstItem="VO9-Iz-MyK" firstAttribute="centerX" secondItem="hwg-Vo-GYF" secondAttribute="centerX" type="default" id="z2C-Eo-hQV"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="centerLabel" destination="hHU-w5-oiM" id="dyW-3A-P90"/>
+                        <outlet property="coordTextField" destination="phI-h5-XcV" id="Utj-tj-lXk"/>
+                        <outlet property="readyButton" destination="VO9-Iz-MyK" id="9V4-XT-hWc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0W1-sN-fmt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,13 +436,16 @@
         <class className="GameViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GameViewController.h"/>
             <relationships>
+                <relationship kind="action" name="pressQuitButton:"/>
+                <relationship kind="action" name="pressReadyButton:"/>
                 <relationship kind="outlet" name="centerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="coordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="readyButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="HostViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HostViewController.h"/>
             <relationships>
-                <relationship kind="action" name="back:"/>
                 <relationship kind="action" name="startAction:"/>
                 <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -407,7 +454,6 @@
         <class className="JoinViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/JoinViewController.h"/>
             <relationships>
-                <relationship kind="action" name="back:"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="waitView" candidateClass="UIView"/>
             </relationships>

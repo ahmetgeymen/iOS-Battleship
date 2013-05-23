@@ -12,22 +12,8 @@
 #import "Player.h"
 
 
-typedef enum
-{
-	GameStateWaitingForSignIn,
-	GameStateWaitingForReady,
-	GameStatePlacing,
-	GameStatePlaying,
-	GameStateGameOver,
-	GameStateQuitting,
-}
-GameState;
-
-
 @implementation Game
 {
-    GameState _state;
-    
 	GKSession *_session;
 	NSString *_serverPeerID;
 	NSString *_localPlayerName;
@@ -58,7 +44,7 @@ GameState;
 	_serverPeerID = peerID;
 	_localPlayerName = name;
     
-	_state = GameStateWaitingForSignIn;
+	_gameState = GameStateWaitingForSignIn;
     
 	[self.delegate gameWaitingForServerReady:self];
 }
@@ -72,7 +58,7 @@ GameState;
 	_session.delegate = self;
 	[_session setDataReceiveHandler:self withContext:nil];
     
-	_state = GameStateWaitingForSignIn;
+	_gameState = GameStateWaitingForSignIn;
     
 	[self.delegate gameWaitingForClientsReady:self];
     
@@ -106,11 +92,98 @@ GameState;
 	[self sendPacketToAllClients:packet];
 }
 
+- (void)startShipPlacement
+{
+    [self.delegate gameShipPlacementDidBegin];
+}
+
+- (void)endShipPlacement
+{
+    _gameState = GameStateWaitingForReady;
+    
+    Packet *packet;
+    if (self.isServer) {
+        packet = [Packet packetWithType:PacketTypeServerPlacementReady];
+        [self sendPacketToAllClients:packet];
+    } else {
+        packet = [Packet packetWithType:PacketTypeClientPlacementReady];
+        [self sendPacketToServer:packet];
+    }
+    
+    [self.delegate gameShipPlacementDidEnd];
+}
+
+- (void)startShipTargeting
+{
+    [self.delegate gameShipTargetingDidBegin];
+}
+
+- (void)waitShipTargeting
+{
+    [self.delegate gameWaitForShipTargeting];
+}
+
+//TODO: Should make request with a payload
+- (void)endShipTargetting:(NSString *)string
+{
+    Packet *packet;
+
+    if (!string) {
+        string = @"";
+    }
+    
+    if (self.isServer) {
+        packet = [Packet packetWithType:PacketTypeServerShootRequest];
+        [[packet payload] setObject:string forKey:@"payload"];
+        [self sendPacketToAllClients:packet];
+    } else {
+        packet = [Packet packetWithType:PacketTypeClientShootRequest];
+        [[packet payload] setObject:string forKey:@"payload"];        
+        [self sendPacketToServer:packet];
+    }
+    
+    [self.delegate gameShipTargetingDidEnd];
+}
+
+- (void)shootRequestFromClientWithPayload:(NSDictionary *)payload
+{
+    NSString *string = [payload objectForKey:@"payload"];
+    
+    NSLog(@"payload: %@", string);
+    
+    Packet *packet = [Packet packetWithType:PacketTypeServerShootResponse];
+    [[packet payload] setObject:@"OK - FromServer" forKey:@"payload"];
+    [self sendPacketToAllClients:packet];
+}
+
+- (void)shootResponseFromClientWithPayload:(NSDictionary *)payload
+{
+    // Change game state to ready at the end
+    _gameState = GameStateWaitingForReady;
+}
+
+- (void)shootRequestFromServerWithPayload:(NSDictionary *)payload
+{
+    NSString *string = [payload objectForKey:@"payload"];
+    
+    NSLog(@"payload: %@", string);
+    
+    Packet *packet = [Packet packetWithType:PacketTypeClientShootResponse];
+    [[packet payload] setObject:@"OK - FromClient" forKey:@"payload"];
+    [self sendPacketToServer:packet];
+}
+
+- (void)shootResponseFromServerWithPayload:(NSDictionary *)payload
+{
+    // Change game state to ready at the end
+    _gameState = GameStateWaitingForReady;
+}
+
 - (void)quitGameWithReason:(QuitReason)reason
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
     
-	_state = GameStateQuitting;
+	_gameState = GameStateQuitting;
     
 	if (reason == QuitReasonUserQuit)
 	{
@@ -231,7 +304,7 @@ GameState;
     
 	if ([[error domain] isEqualToString:GKSessionErrorDomain])
 	{
-		if (_state != GameStateQuitting)
+		if (_gameState != GameStateQuitting)
 		{
 			[self quitGameWithReason:QuitReasonConnectionDropped];
 		}
@@ -244,7 +317,8 @@ GameState;
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peerID inSession:(GKSession *)session context:(void *)context
 {
 #ifdef DEBUG
-	NSLog(@"Game: receive data from peer: %@, data: %@, length: %d", peerID, data, [data length]);
+//	NSLog(@"Game: receive data from peer: %@, data: %@, length: %d", peerID, data, [data length]);
+//	NSLog(@"Game: receive data from peer: %@, length: %d", peerID, [data length]);
 #endif
     
 	Packet *packet = [Packet packetWithData:data];
@@ -253,6 +327,10 @@ GameState;
 		NSLog(@"Invalid packet: %@", data);
 		return;
 	}
+    
+#ifdef DEBUG
+	NSLog(@"Game: receive data from peer: %@, packetType: %u, length: %d", peerID, packet.packetType, [data length]);
+#endif
     
 	Player *player = [self playerWithPeerID:peerID];
 //	if (player != nil)
@@ -279,8 +357,8 @@ GameState;
     switch (packet.packetType)
     {
         case PacketTypeSignInResponse:
-            if (_state == GameStateWaitingForSignIn) {
-                _state = GameStateWaitingForReady;
+            if (_gameState == GameStateWaitingForSignIn) {
+                _gameState = GameStateWaitingForReady;
                 
                 Packet *packet = [Packet packetWithType:PacketTypeServerReady];
                 [self sendPacketToAllClients:packet];
@@ -289,26 +367,27 @@ GameState;
             break;
             
         case PacketTypeClientReady:
-            if (_state == GameStateWaitingForReady) {
-                _state = GameStatePlacing;
+            if (_gameState == GameStateWaitingForReady) {
+                _gameState = GameStatePlacing;
                 
                 Packet *packet = [Packet packetWithType:PacketTypeStartPlacement];
                 [self sendPacketToAllClients:packet];
                 
-                //TODO:
-//                [self startPlacement];
+                [self startShipPlacement];
             }
             
             break;
             
         case PacketTypeClientPlacementReady:
-            if (_state == GameStatePlacing) {
+            if (_gameState == GameStatePlacing) {
                 
                 //TODO: Just show that client is ready to begin
             }
             
-            if (_state == GameStateWaitingForReady) {
-                _state = GameStatePlaying;
+            if (_gameState == GameStateWaitingForReady) {
+                _gameState = GameStatePlaying;
+                
+                [self startShipTargeting];
                 
                 Packet *packet = [Packet packetWithType:PacketTypeActivatePlayer];
                 [[packet payload] setObject:@"host" forKey:@"activePlayer"];
@@ -320,15 +399,17 @@ GameState;
             
         case PacketTypeClientShootRequest:
             //TODO: Take payload and give result in response
-//            [self shootRequestFromClientWithPayload:[packet payload]];
+            [self shootRequestFromClientWithPayload:[packet payload]];
             
             break;
             
         case PacketTypeClientShootResponse:
             //TODO: Take payload and give result in response
-//            [self shootRespondFromClientWithPayload:[packet payload]];
+            [self shootResponseFromClientWithPayload:[packet payload]];
             
-            if (_state == GameStateWaitingForReady) {
+            [self waitShipTargeting];
+            
+            if (_gameState == GameStateWaitingForReady) {
                 Packet *packet = [Packet packetWithType:PacketTypeActivatePlayer];
                 [[packet payload] setObject:@"guest" forKey:@"activePlayer"];
                 
@@ -339,10 +420,10 @@ GameState;
             
         case PacketTypeActivatePlayer:
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"host"]) {
-                _state =GameStatePlaying;
+                _gameState =GameStatePlaying;
                 
                 //TODO: Start choosing target
-//                [self startTargeting];
+                [self startShipTargeting];
             }
             
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
@@ -366,9 +447,8 @@ GameState;
     switch (packet.packetType)
     {
         case PacketTypeSignInRequest:
-            if (_state == GameStateWaitingForSignIn) {
-
-				_state = GameStateWaitingForReady;
+            if (_gameState == GameStateWaitingForSignIn) {
+				_gameState = GameStateWaitingForReady;
                 
 				Packet *packet = [Packet packetWithType:PacketTypeSignInResponse];
 				[self sendPacketToServer:packet];
@@ -376,7 +456,7 @@ GameState;
             break;
             
         case PacketTypeServerReady:
-            if (_state == GameStateWaitingForReady) {
+            if (_gameState == GameStateWaitingForReady) {
 
                 Packet *packet = [Packet packetWithType:PacketTypeClientReady];
                 [self sendPacketToServer:packet];
@@ -385,19 +465,21 @@ GameState;
             break;
             
         case PacketTypeStartPlacement:
-            if (_state == GameStateWaitingForReady) {
-                _state = GameStatePlacing;
+            if (_gameState == GameStateWaitingForReady) {
+                _gameState = GameStatePlacing;
+                
+                [self startShipPlacement];
             }
             
             break;
             
         case PacketTypeServerPlacementReady:
-            if (_state == GameStatePlacing) {
+            if (_gameState == GameStatePlacing) {
                 
                 //TODO: Just show that server is ready to begin
             }
             
-            if (_state == GameStateWaitingForReady) {
+            if (_gameState == GameStateWaitingForReady) {
                 
                 Packet *packet = [Packet packetWithType:PacketTypeClientPlacementReady];
                 [self sendPacketToServer:packet];
@@ -408,15 +490,17 @@ GameState;
         case PacketTypeServerShootRequest:
             
             //TODO: Take payload and give result in response
-//            [self shootRequestFromServerWithPayload:[packet payload]];
+            [self shootRequestFromServerWithPayload:[packet payload]];
             
             break;
             
         case PacketTypeServerShootResponse:
             //TODO: Take payload and give result in response
-//            [self shootRespondFromServerWithPayload:[packet payload]];
+            [self shootResponseFromServerWithPayload:[packet payload]];
             
-            if (_state == GameStateWaitingForReady) {
+            [self waitShipTargeting];
+            
+            if (_gameState == GameStateWaitingForReady) {
                 Packet *packet = [Packet packetWithType:PacketTypeActivatePlayer];
                 [[packet payload] setObject:@"host" forKey:@"activePlayer"];
                 
@@ -428,13 +512,15 @@ GameState;
         case PacketTypeActivatePlayer:
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"host"]) {
                 //TODO: Just show the turn is on the host player
+                
+                [self waitShipTargeting];
             }
             
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
-                _state = GameStatePlaying;
+                _gameState = GameStatePlaying;
                 
                 //TODO: Start choosing target
-//                [self startTargeting];
+                [self startShipTargeting];
             }
             
             break;            

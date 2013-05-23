@@ -182,7 +182,7 @@
 
 - (void)gameViewController:(GameViewController *)controller didQuitWithReason:(QuitReason)reason
 {
-    
+    // Dismiss game view controller
 	[self dismissViewControllerAnimated:NO completion:^
      {
          if (reason == QuitReasonConnectionDropped)
@@ -190,6 +190,8 @@
              [self showDisconnectedAlert];
          }
      }];
+    
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 
