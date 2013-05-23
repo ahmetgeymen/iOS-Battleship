@@ -16,6 +16,7 @@ typedef enum
 	PacketTypeServerReady,              // server to client
 	PacketTypeClientReady,              // client to server
     
+    PacketTypeStartPlacement,           // server to client
 	PacketTypeServerPlacementReady,     // server to client
 	PacketTypeClientPlacementReady,     // client to server
     
@@ -37,11 +38,13 @@ PacketType;
 @property (nonatomic, assign) int packetNumber;
 @property (nonatomic, assign) PacketType packetType;
 @property (nonatomic, assign) BOOL sendReliably;
+@property (nonatomic, strong) NSMutableDictionary *payload;
 
 + (id)packetWithData:(NSData *)data;
 + (id)packetWithType:(PacketType)packetType;
 
 - (id)initWithType:(PacketType)packetType;
+- (void)addPayload:(NSDictionary *)payload;
 
 - (NSData *)data;
 

@@ -14,13 +14,12 @@
 {
     NSDictionary *dictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-    Packet *packet;
     PacketType packetType = [[dictionary objectForKey:@"PacketType"] integerValue];
     
-    //TODO: Switch with packetType
-    packet.packetType = packetType;
-
+    Packet *packet = [Packet packetWithType:packetType];
+    
     [packet setPacketNumber:[[dictionary objectForKey:@"PacketNumber"] intValue]];
+    
     return packet;
 }
 
@@ -36,6 +35,7 @@
 		self.packetNumber = -1;
 		self.packetType = packetType;
 		self.sendReliably = YES;
+        self.payload = [NSMutableDictionary dictionary];
 	}
 	return self;
 }
@@ -45,10 +45,16 @@
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionary];
     
     [mutableDictionary setObject:[NSNumber numberWithInt:[self packetNumber]]   forKey:@"PacketNumber"];
+    [mutableDictionary setObject:[self payload]                                 forKey:@"PacketPayload"];
     [mutableDictionary setObject:[NSNumber numberWithInteger:[self packetType]] forKey:@"PacketType"];
     [mutableDictionary setObject:[NSNumber numberWithBool:[self sendReliably]]  forKey:@"SendReliably"];
     
     return [NSKeyedArchiver archivedDataWithRootObject:mutableDictionary];
+}
+
+- (void)addPayload:(NSDictionary *)payload
+{
+    self.payload = (NSMutableDictionary*)payload;
 }
 
 - (NSString *)description

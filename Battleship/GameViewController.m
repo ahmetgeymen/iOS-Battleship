@@ -38,11 +38,6 @@
 
 #pragma mark - *** GameDelegate ***
 
-- (void)game:(Game *)game didQuitWithReason:(QuitReason)reason
-{
-	[self.delegate gameViewController:self didQuitWithReason:reason];
-}
-
 - (void)gameWaitingForClientsReady:(Game *)game
 {
 	self.centerLabel.text = NSLocalizedString(@"Waiting for other players...", @"Status text: waiting for clients");    
@@ -51,6 +46,11 @@
 - (void)gameWaitingForServerReady:(Game *)game
 {
 	self.centerLabel.text = NSLocalizedString(@"Waiting for game to start...", @"Status text: waiting for server");    
+}
+
+- (void)game:(Game *)game didQuitWithReason:(QuitReason)reason
+{
+	[self.delegate gameViewController:self didQuitWithReason:reason];
 }
 
 @end

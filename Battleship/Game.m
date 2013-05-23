@@ -16,7 +16,7 @@ typedef enum
 {
 	GameStateWaitingForSignIn,
 	GameStateWaitingForReady,
-	GameStateDealing,
+	GameStatePlacing,
 	GameStatePlaying,
 	GameStateGameOver,
 	GameStateQuitting,
@@ -100,7 +100,6 @@ GameState;
 //			player.position = PlayerPositionRight;
 //        
 //		index++;
-
 	}
     
 	Packet *packet = [Packet packetWithType:PacketTypeSignInRequest];
@@ -117,13 +116,13 @@ GameState;
 	{
 		if (self.isServer)
 		{
-//			Packet *packet = [Packet packetWithType:PacketTypeServerQuit];
-//			[self sendPacketToAllClients:packet];
+			Packet *packet = [Packet packetWithType:PacketTypeServerQuit];
+			[self sendPacketToAllClients:packet];
 		}
 		else
 		{
-//			Packet *packet = [Packet packetWithType:PacketTypeClientQuit];
-//			[self sendPacketToServer:packet];
+			Packet *packet = [Packet packetWithType:PacketTypeClientQuit];
+			[self sendPacketToServer:packet];
 		}
 	}
     
@@ -276,7 +275,90 @@ GameState;
 
 - (void)serverReceivedPacket:(Packet *)packet fromPlayer:(Player *)player
 {
-    
+    //TODO:
+    switch (packet.packetType)
+    {
+        case PacketTypeSignInResponse:
+            if (_state == GameStateWaitingForSignIn) {
+                _state = GameStateWaitingForReady;
+                
+                Packet *packet = [Packet packetWithType:PacketTypeServerReady];
+                [self sendPacketToAllClients:packet];
+            }
+            
+            break;
+            
+        case PacketTypeClientReady:
+            if (_state == GameStateWaitingForReady) {
+                _state = GameStatePlacing;
+                
+                Packet *packet = [Packet packetWithType:PacketTypeStartPlacement];
+                [self sendPacketToAllClients:packet];
+                
+                //TODO:
+//                [self startPlacement];
+            }
+            
+            break;
+            
+        case PacketTypeClientPlacementReady:
+            if (_state == GameStatePlacing) {
+                
+                //TODO: Just show that client is ready to begin
+            }
+            
+            if (_state == GameStateWaitingForReady) {
+                _state = GameStatePlaying;
+                
+                Packet *packet = [Packet packetWithType:PacketTypeActivatePlayer];
+                [[packet payload] setObject:@"host" forKey:@"activePlayer"];
+                
+                [self sendPacketToAllClients:packet];
+            }
+            
+            break;
+            
+        case PacketTypeClientShootRequest:
+            //TODO: Take payload and give result in response
+//            [self shootRequestFromClientWithPayload:[packet payload]];
+            
+            break;
+            
+        case PacketTypeClientShootResponse:
+            //TODO: Take payload and give result in response
+//            [self shootRespondFromClientWithPayload:[packet payload]];
+            
+            if (_state == GameStateWaitingForReady) {
+                Packet *packet = [Packet packetWithType:PacketTypeActivatePlayer];
+                [[packet payload] setObject:@"guest" forKey:@"activePlayer"];
+                
+                [self sendPacketToAllClients:packet];
+            }
+            
+            break;
+            
+        case PacketTypeActivatePlayer:
+            if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"host"]) {
+                _state =GameStatePlaying;
+                
+                //TODO: Start choosing target
+//                [self startTargeting];
+            }
+            
+            if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
+                
+                //TODO: Just show the turn is on the host player
+            }
+            break;
+            
+        case PacketTypeClientQuit:
+            [self quitGameWithReason:QuitReasonUserQuit];
+            break;
+            
+        default:
+            NSLog(@"Server received unexpected packet: %@", packet);
+            break;
+    }
 }
 
 - (void)clientReceivedPacket:(Packet *)packet
@@ -284,13 +366,81 @@ GameState;
     switch (packet.packetType)
     {
         case PacketTypeSignInRequest:
-            if (_state == GameStateWaitingForSignIn)
-			{
+            if (_state == GameStateWaitingForSignIn) {
+
 				_state = GameStateWaitingForReady;
                 
-//				Packet *packet = [PacketSignInResponse packetWithPlayerName:_localPlayerName];
+				Packet *packet = [Packet packetWithType:PacketTypeSignInResponse];
 				[self sendPacketToServer:packet];
 			}
+            break;
+            
+        case PacketTypeServerReady:
+            if (_state == GameStateWaitingForReady) {
+
+                Packet *packet = [Packet packetWithType:PacketTypeClientReady];
+                [self sendPacketToServer:packet];
+            }
+            
+            break;
+            
+        case PacketTypeStartPlacement:
+            if (_state == GameStateWaitingForReady) {
+                _state = GameStatePlacing;
+            }
+            
+            break;
+            
+        case PacketTypeServerPlacementReady:
+            if (_state == GameStatePlacing) {
+                
+                //TODO: Just show that server is ready to begin
+            }
+            
+            if (_state == GameStateWaitingForReady) {
+                
+                Packet *packet = [Packet packetWithType:PacketTypeClientPlacementReady];
+                [self sendPacketToServer:packet];
+            }
+            
+            break;
+                        
+        case PacketTypeServerShootRequest:
+            
+            //TODO: Take payload and give result in response
+//            [self shootRequestFromServerWithPayload:[packet payload]];
+            
+            break;
+            
+        case PacketTypeServerShootResponse:
+            //TODO: Take payload and give result in response
+//            [self shootRespondFromServerWithPayload:[packet payload]];
+            
+            if (_state == GameStateWaitingForReady) {
+                Packet *packet = [Packet packetWithType:PacketTypeActivatePlayer];
+                [[packet payload] setObject:@"host" forKey:@"activePlayer"];
+                
+                [self sendPacketToServer:packet];
+            }
+            
+            break;
+            
+        case PacketTypeActivatePlayer:
+            if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"host"]) {
+                //TODO: Just show the turn is on the host player
+            }
+            
+            if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
+                _state = GameStatePlaying;
+                
+                //TODO: Start choosing target
+//                [self startTargeting];
+            }
+            
+            break;            
+            
+        case PacketTypeServerQuit:
+            [self quitGameWithReason:QuitReasonServerQuit];
             break;
             
         default:
