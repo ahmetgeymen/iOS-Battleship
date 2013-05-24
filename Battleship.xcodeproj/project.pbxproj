@@ -13,7 +13,11 @@
 		BA844B5C172C3FAB00CE53D6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA844B5B172C3FAB00CE53D6 /* GameKit.framework */; };
 		BA844B69172C643300CE53D6 /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B66172C643300CE53D6 /* MatchmakingClient.m */; };
 		BA844B6A172C643300CE53D6 /* MatchmakingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B68172C643300CE53D6 /* MatchmakingServer.m */; };
+		BA8B77DA174ECE740054A361 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77D9174ECE740054A361 /* GridView.m */; };
+		BA8B77DD174ECE880054A361 /* ShipView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77DC174ECE880054A361 /* ShipView.m */; };
+		BA8B77E0174ED0D60054A361 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77DF174ED0D60054A361 /* Ship.m */; };
 		BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */; };
+		BABDC71F17502EA30024B7F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABDC71E17502EA30024B7F5 /* QuartzCore.framework */; };
 		BAC368BB1732519300B20998 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368BA1732519300B20998 /* Player.m */; };
 		BAC368C61732A05400B20998 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368C51732A05400B20998 /* Packet.m */; };
 		BAFFD94E1722122500B49BF2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAFFD94D1722122500B49BF2 /* UIKit.framework */; };
@@ -41,8 +45,15 @@
 		BA844B66172C643300CE53D6 /* MatchmakingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingClient.m; sourceTree = "<group>"; };
 		BA844B67172C643300CE53D6 /* MatchmakingServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingServer.h; sourceTree = "<group>"; };
 		BA844B68172C643300CE53D6 /* MatchmakingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchmakingServer.m; sourceTree = "<group>"; };
+		BA8B77D8174ECE740054A361 /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
+		BA8B77D9174ECE740054A361 /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
+		BA8B77DB174ECE870054A361 /* ShipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipView.h; sourceTree = "<group>"; };
+		BA8B77DC174ECE880054A361 /* ShipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipView.m; sourceTree = "<group>"; };
+		BA8B77DE174ED0D60054A361 /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
+		BA8B77DF174ED0D60054A361 /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
 		BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
+		BABDC71E17502EA30024B7F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BAC368B91732519300B20998 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		BAC368BA1732519300B20998 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		BAC368C41732A05400B20998 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
@@ -73,6 +84,7 @@
 				BAFFD94E1722122500B49BF2 /* UIKit.framework in Frameworks */,
 				BAFFD9501722122500B49BF2 /* Foundation.framework in Frameworks */,
 				BAFFD9521722122500B49BF2 /* CoreGraphics.framework in Frameworks */,
+				BABDC71F17502EA30024B7F5 /* QuartzCore.framework in Frameworks */,
 				BA844B5C172C3FAB00CE53D6 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +99,8 @@
 				BA1543901730130F00608ADC /* Game.m */,
 				BAC368B91732519300B20998 /* Player.h */,
 				BAC368BA1732519300B20998 /* Player.m */,
+				BA8B77DE174ED0D60054A361 /* Ship.h */,
+				BA8B77DF174ED0D60054A361 /* Ship.m */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -119,6 +133,17 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		BA8B77D7174ECDC30054A361 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BA8B77D8174ECE740054A361 /* GridView.h */,
+				BA8B77D9174ECE740054A361 /* GridView.m */,
+				BA8B77DB174ECE870054A361 /* ShipView.h */,
+				BA8B77DC174ECE880054A361 /* ShipView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		BAFFD9411722122500B49BF2 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +167,7 @@
 				BAFFD94D1722122500B49BF2 /* UIKit.framework */,
 				BAFFD94F1722122500B49BF2 /* Foundation.framework */,
 				BAFFD9511722122500B49BF2 /* CoreGraphics.framework */,
+				BABDC71E17502EA30024B7F5 /* QuartzCore.framework */,
 				BA844B5B172C3FAB00CE53D6 /* GameKit.framework */,
 			);
 			name = Frameworks;
@@ -154,6 +180,7 @@
 				BAFFD95C1722122500B49BF2 /* AppDelegate.h */,
 				BAFFD95D1722122500B49BF2 /* AppDelegate.m */,
 				BA15438B17300FFB00608ADC /* Data Model */,
+				BA8B77D7174ECDC30054A361 /* Views */,
 				BA844B64172C640F00CE53D6 /* View Controllers */,
 				BA844B63172C63F800CE53D6 /* Networking */,
 				BAFFD9541722122500B49BF2 /* Supporting Files */,
@@ -252,6 +279,9 @@
 				BA1543911730130F00608ADC /* Game.m in Sources */,
 				BAC368BB1732519300B20998 /* Player.m in Sources */,
 				BAC368C61732A05400B20998 /* Packet.m in Sources */,
+				BA8B77DA174ECE740054A361 /* GridView.m in Sources */,
+				BA8B77DD174ECE880054A361 /* ShipView.m in Sources */,
+				BA8B77E0174ED0D60054A361 /* Ship.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

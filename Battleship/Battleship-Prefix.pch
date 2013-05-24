@@ -25,3 +25,5 @@ typedef enum
 	QuitReasonServerQuit,         // the server quit the game (on purpose)
 }
 QuitReason;
+
+#define CELLSIZE 45

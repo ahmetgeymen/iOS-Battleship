@@ -21,4 +21,6 @@ PlayerType;
 @property (nonatomic, copy)     NSString *peerID;
 @property (nonatomic, assign)   PlayerType type;
 
+@property (nonatomic, weak)     NSMutableArray *ships;
+
 @end
