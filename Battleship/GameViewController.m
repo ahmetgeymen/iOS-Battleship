@@ -35,6 +35,14 @@
     [[self targetGridView] setDelegate:self];
     [[self targetGridView] setTapGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:[self targetGridView] action:@selector(doTap:)]];
     [[self targetGridView] addGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];
+    
+    //***************************
+    
+//    Game *game = [[Game alloc] init];
+//    [self setGame:game];
+//    
+//    Player *player = [[Player alloc] init];
+//    [[self game] setPlayer:player];
 
 }
 
@@ -42,6 +50,289 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - *** Game Data Modelling ***
+
+- (void)saveSegmentsForShip:(ShipView *)shipView
+{
+    BOOL isShipRotated = NO;
+    
+    if ([shipView frame].size.width < [shipView frame].size.height) {
+        isShipRotated = YES;
+    }
+    
+    NSInteger xIndex = [shipView frame].origin.x / 45;
+    NSInteger yIndex = [shipView frame].origin.y / 45;
+    
+    NSInteger firstSegment = yIndex * 10 + xIndex;
+    
+    // Carrier
+    if ([shipView isEqual:[self carrierShipView]]) {
+        
+        BOOL doesContainCarrier = NO;
+        Ship *carrierShip = nil;
+        
+        for (Ship *ship in [[[self game] player] ships]) {
+            if ([ship type] == ShipTypeCarrier) {
+                doesContainCarrier = YES;
+                carrierShip = ship;
+                break;
+            }
+        }
+        
+        // Modify ship segments
+        if (doesContainCarrier) {
+            
+            [[carrierShip segments] removeAllObjects];
+            
+            for (int i = 0; i < [carrierShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[carrierShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[carrierShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+        }
+        
+        // Add ship for first time
+        else {
+
+            carrierShip = [Ship shipWithType:ShipTypeCarrier];
+            for (int i = 0; i < [carrierShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[carrierShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[carrierShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+            
+            [[[[self game] player] ships] addObject:carrierShip];
+        }
+    }
+    
+    // Battleship
+    if ([shipView isEqual:[self battleshipShipView]]) {
+
+        BOOL doesContainBattleship = NO;
+        Ship *battleshipShip = nil;
+        
+        for (Ship *ship in [[[self game] player] ships]) {
+            if ([ship type] == ShipTypeBattleship) {
+                doesContainBattleship = YES;
+                battleshipShip = ship;
+                break;
+            }
+        }
+        
+        // Modify ship segments
+        if (doesContainBattleship) {
+            
+            [[battleshipShip segments] removeAllObjects];
+            
+            for (int i = 0; i < [battleshipShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[battleshipShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[battleshipShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+        }
+        
+        // Add ship for first time
+        else {
+            
+            battleshipShip = [Ship shipWithType:ShipTypeBattleship];
+            for (int i = 0; i < [battleshipShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[battleshipShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[battleshipShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+            
+            [[[[self game] player] ships] addObject:battleshipShip];
+        }
+    }
+    
+    // Cruiser
+    if ([shipView isEqual:[self cruiserShipView]]) {
+
+        BOOL doesContainCruiser = NO;
+        Ship *cruiserShip = nil;
+        
+        for (Ship *ship in [[[self game] player] ships]) {
+            if ([ship type] == ShipTypeCruiser) {
+                doesContainCruiser = YES;
+                cruiserShip = ship;
+                break;
+            }
+        }
+        
+        // Modify ship segments
+        if (doesContainCruiser) {
+            
+            [[cruiserShip segments] removeAllObjects];
+            
+            for (int i = 0; i < [cruiserShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[cruiserShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[cruiserShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+        }
+        
+        // Add ship for first time
+        else {
+            
+            cruiserShip = [Ship shipWithType:ShipTypeCruiser];
+            for (int i = 0; i < [cruiserShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[cruiserShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[cruiserShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+            
+            [[[[self game] player] ships] addObject:cruiserShip];
+        }
+    }
+    
+    // Submarine
+    if ([shipView isEqual:[self submarineShipView]]) {
+
+        BOOL doesContainSubmarine = NO;
+        Ship *submarineShip = nil;
+        
+        for (Ship *ship in [[[self game] player] ships]) {
+            if ([ship type] == ShipTypeSubmarine) {
+                doesContainSubmarine = YES;
+                submarineShip = ship;
+                break;
+            }
+        }
+        
+        // Modify ship segments
+        if (doesContainSubmarine) {
+            
+            [[submarineShip segments] removeAllObjects];
+            
+            for (int i = 0; i < [submarineShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[submarineShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[submarineShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+        }
+        
+        // Add ship for first time
+        else {
+            
+            submarineShip = [Ship shipWithType:ShipTypeSubmarine];
+            for (int i = 0; i < [submarineShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[submarineShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[submarineShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+            
+            [[[[self game] player] ships] addObject:submarineShip];
+        }
+    }
+    
+    // Patrol Boat
+    if ([shipView isEqual:[self patrolBoatShipView]]) {
+
+        BOOL doesContainPatrolBoat = NO;
+        Ship *patrolBoatShip = nil;
+        
+        for (Ship *ship in [[[self game] player] ships]) {
+            if ([ship type] == ShipTypePatrolBoat) {
+                doesContainPatrolBoat = YES;
+                patrolBoatShip = ship;
+                break;
+            }
+        }
+        
+        // Modify ship segments
+        if (doesContainPatrolBoat) {
+            
+            [[patrolBoatShip segments] removeAllObjects];
+            
+            for (int i = 0; i < [patrolBoatShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[patrolBoatShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[patrolBoatShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+        }
+        
+        // Add ship for first time
+        else {
+            
+            patrolBoatShip = [Ship shipWithType:ShipTypePatrolBoat];
+            for (int i = 0; i < [patrolBoatShip lenght]; i++) {
+                
+                // Add vertical segments
+                if (isShipRotated) {
+                    [[patrolBoatShip segments] addObject:[NSNumber numberWithInteger:firstSegment + (i * 10)]];
+                }
+                // Add horizontal segments
+                else {
+                    [[patrolBoatShip segments] addObject:[NSNumber numberWithInteger:firstSegment + i]];
+                }
+            }
+            
+            [[[[self game] player] ships] addObject:patrolBoatShip];
+        }
+    }
+    
+    // Make ready to start
+    if ([[[[self game] player] ships] count] == 5) {
+        [[self readyButton] setEnabled:YES];
+        [[self readyButton] setTitle:@"Ready" forState:UIControlStateNormal];
+    }
 }
 
 
@@ -69,10 +360,7 @@
             if (isOverlapping) {
                 return NO;
             }
-            
-            [[self myGridView] addSubview:shipView];
-            [shipView setFrame:relativeFrame];
-            
+                        
             //***************************
             
             // If ship size is odd or even
@@ -86,6 +374,26 @@
             }
             
             CGPoint newPoint = [self nearestPoint:relativeEndPoint isOdd:odd];
+            
+            //***************************
+            
+            // Check if ship overflow from grid
+            CGPoint translation = CGPointMake((newPoint.x - relativeEndPoint.x), (newPoint.y - relativeEndPoint.y));
+            CGRect checkFrame = CGRectMake(relativeFrame.origin.x + translation.x, relativeFrame.origin.y + translation.y, relativeFrame.size.width, relativeFrame.size.height);
+            
+            CGRect myGridFrame = [[self myGridView] frame];
+            myGridFrame = [[self myGridView] convertRect:myGridFrame fromView:[self view]];
+            
+            if (!CGRectContainsRect(myGridFrame, checkFrame)) {
+                return NO;
+            }
+
+            //***************************            
+            
+            [[self myGridView] addSubview:shipView];
+            [shipView setFrame:relativeFrame];
+            
+            //***************************
 
             // Snap ship
             [UIView animateWithDuration:0.5f animations:^{
@@ -124,14 +432,30 @@
                 }
             }
             
-            // Snap ship
             if (isOverlapping) {
                 return NO;
-            } else {
-                [UIView animateWithDuration:0.5f animations:^{
-                    [shipView setCenter:CGPointMake(newPoint.x, newPoint.y)];
-                }];
             }
+            
+            //********************
+            
+            // Check if ship overflow from grid
+            CGPoint translation = CGPointMake((newPoint.x - endPoint.x), (newPoint.y - endPoint.y));
+            CGRect frameRect = [shipView frame];
+            CGRect checkFrame = CGRectMake(frameRect.origin.x + translation.x, frameRect.origin.y + translation.y, frameRect.size.width, frameRect.size.height);
+            
+            CGRect myGridFrame = [[self myGridView] frame];
+            myGridFrame = [[self myGridView] convertRect:myGridFrame fromView:[self view]];
+            
+            if (!CGRectContainsRect(myGridFrame, checkFrame)) {
+                return NO;
+            }
+            
+            //********************
+
+            // Snap ship
+            [UIView animateWithDuration:0.5f animations:^{
+                [shipView setCenter:CGPointMake(newPoint.x, newPoint.y)];
+            }];
             
             return YES;
         }
@@ -192,7 +516,7 @@
 
 - (IBAction)shipGesturePan:(UIPanGestureRecognizer *)recognizer
 {
-    UIView *shipView = [recognizer view];
+    ShipView *shipView = (ShipView *)[recognizer view];
     
     if ([recognizer state] == UIGestureRecognizerStateBegan) {
         panStartPoint = [shipView center];
@@ -217,6 +541,11 @@
             [UIView animateWithDuration:0.5 animations:^{
                 [shipView setCenter:panStartPoint];
             }];
+        }
+        
+        // Save the ships segments as data model
+        else {
+            [self saveSegmentsForShip:shipView];
         }
     }
 }
@@ -281,6 +610,7 @@
     
     [[self targetCoordLabel] setText:@""];
     [[self readyButton] setEnabled:YES];
+    [[self readyButton] setTitle:@"Shoot" forState:UIControlStateNormal];
     
     self.centerLabel.text = NSLocalizedString(@"Choose a target coordinate", @"Status text: targeting began");
 }

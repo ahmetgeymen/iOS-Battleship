@@ -278,11 +278,11 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VO9-Iz-MyK">
-                                <rect key="frame" x="554" y="615" width="73" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VO9-Iz-MyK">
+                                <rect key="frame" x="554" y="615" width="100" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Not Ready">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -390,9 +390,14 @@
                     <navigationItem key="navigationItem" id="dQW-di-Oyr"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="battleshipShipView" destination="Vcx-kM-QFs" id="jZK-lt-oFJ"/>
+                        <outlet property="carrierShipView" destination="WST-GN-7ts" id="1WC-LN-BC8"/>
                         <outlet property="centerLabel" destination="hHU-w5-oiM" id="dyW-3A-P90"/>
+                        <outlet property="cruiserShipView" destination="fGr-VQ-W0E" id="0eB-ip-AOf"/>
                         <outlet property="myGridView" destination="RwK-Ps-nwh" id="l8H-4O-yBM"/>
+                        <outlet property="patrolBoatShipView" destination="O8h-UI-36g" id="IrD-Og-U09"/>
                         <outlet property="readyButton" destination="VO9-Iz-MyK" id="9V4-XT-hWc"/>
+                        <outlet property="submarineShipView" destination="rJz-rv-zUk" id="SK4-Gl-hsp"/>
                         <outlet property="targetCoordLabel" destination="zGJ-Du-AkX" id="3Gf-oZ-5c7"/>
                         <outlet property="targetGridView" destination="DXJ-vS-zZs" id="Z0Y-kM-TVp"/>
                     </connections>

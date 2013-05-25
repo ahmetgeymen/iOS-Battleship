@@ -62,7 +62,9 @@
     CGPoint tapPoint = [gestureRecognizer locationInView:self];
     NSLog(@"tapPoint: %@", NSStringFromCGPoint(tapPoint));
     
-    [self addTargetViewAtPoint:tapPoint];
+    if ([[self delegate] gameState] == GameStatePlaying) {
+        [self addTargetViewAtPoint:tapPoint];
+    }
 }
 
 #pragma mark -

@@ -10,6 +10,15 @@
 
 @implementation Player
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _ships = [NSMutableArray array];
+    }
+    return self;
+}
+
 - (NSString *)description
 {
 	return [NSString stringWithFormat:@"%@ peerID = %@, name = %@", [super description], self.peerID, self.name];

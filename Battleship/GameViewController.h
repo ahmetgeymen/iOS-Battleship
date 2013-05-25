@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ship.h"
 #import "Game.h"
 #import "GridView.h"
 #import "ShipView.h"
@@ -21,7 +22,7 @@
 @end
 
 
-@interface GameViewController : UIViewController <GameDelegate, UIGestureRecognizerDelegate>
+@interface GameViewController : UIViewController <GameDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel        *centerLabel;
 @property (nonatomic, weak) IBOutlet UILabel        *targetCoordLabel;

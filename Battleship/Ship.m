@@ -17,7 +17,8 @@
 
 - (id)initWithType:(ShipType)shipType
 {
-    if ((self = [super init]))
+    self = [super init];
+    if (self)
 	{
         [self setType:shipType];
         

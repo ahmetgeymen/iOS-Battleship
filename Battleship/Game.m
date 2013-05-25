@@ -7,9 +7,7 @@
 //
 
 #import "Game.h"
-
 #import "Packet.h"
-#import "Player.h"
 
 
 @implementation Game
@@ -19,6 +17,7 @@
 	NSString *_localPlayerName;
     
     NSMutableDictionary *_players;
+
 }
 
 - (id)init
@@ -44,6 +43,12 @@
 	_serverPeerID = peerID;
 	_localPlayerName = name;
     
+    Player *player = [[Player alloc] init];
+	player.name = name;
+	player.peerID = _session.peerID;
+	player.type = PlayerLocal;
+    [self setPlayer:player];
+    
 	_gameState = GameStateWaitingForSignIn;
     
 	[self.delegate gameWaitingForServerReady:self];
@@ -68,6 +73,7 @@
 	player.peerID = _session.peerID;
 	player.type = PlayerLocal;
 	[_players setObject:player forKey:player.peerID];
+    [self setPlayer:player];
     
 	// Add a Player object for each client.
 //	int index = 0;

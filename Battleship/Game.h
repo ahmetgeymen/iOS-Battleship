@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Player.h"
 
 @class Game;
 
@@ -41,9 +42,10 @@ GameState;
 
 @interface Game : NSObject <GKSessionDelegate>
 
-@property (nonatomic, weak) id <GameDelegate> delegate;
-@property (nonatomic, assign) BOOL isServer;
-@property (nonatomic, assign) GameState gameState;
+@property (nonatomic, weak)     id <GameDelegate> delegate;
+@property (nonatomic, assign)   BOOL isServer;
+@property (nonatomic, assign)   GameState gameState;
+@property (nonatomic, strong)   Player *player;
 
 
 - (void)startServerGameWithSession:(GKSession *)session playerName:(NSString *)name clients:(NSArray *)clients;

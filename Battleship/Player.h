@@ -17,10 +17,10 @@ PlayerType;
 
 @interface Player : NSObject
 
-@property (nonatomic, copy)     NSString *name;
-@property (nonatomic, copy)     NSString *peerID;
+@property (nonatomic, weak)     NSString *name;
+@property (nonatomic, weak)     NSString *peerID;
 @property (nonatomic, assign)   PlayerType type;
 
-@property (nonatomic, weak)     NSMutableArray *ships;
+@property (nonatomic, strong)   NSMutableArray *ships;
 
 @end
