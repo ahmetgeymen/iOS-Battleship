@@ -18,6 +18,7 @@
 
 - (void)gameShipPlacementDidBegin;
 - (void)gameShipPlacementDidEnd;
+- (void)gameShipPlacementOpponentReady;
 
 - (void)gameShipTargetingDidBegin;
 - (void)gameShipTargetingDidEnd;

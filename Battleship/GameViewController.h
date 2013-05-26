@@ -26,7 +26,11 @@
 
 @property (nonatomic, weak) IBOutlet UILabel        *centerLabel;
 @property (nonatomic, weak) IBOutlet UILabel        *targetCoordLabel;
+@property (nonatomic, weak) IBOutlet UILabel        *turnInfoLabel;
 @property (nonatomic, weak) IBOutlet UIButton       *readyButton;
+
+@property (nonatomic, weak) IBOutlet UIView         *waitView;
+@property (nonatomic, weak) IBOutlet UILabel        *waitViewLabel;
 
 @property (nonatomic, weak) IBOutlet GridView       *myGridView;
 @property (nonatomic, weak) IBOutlet GridView       *targetGridView;

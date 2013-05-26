@@ -34,7 +34,6 @@
     
     [[self targetGridView] setDelegate:self];
     [[self targetGridView] setTapGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:[self targetGridView] action:@selector(doTap:)]];
-    [[self targetGridView] addGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];
     
     //***************************
     
@@ -343,7 +342,7 @@
     if (![[[self myGridView] subviews] containsObject:shipView]) {
 
         CGPoint relativeEndPoint = [[self myGridView] convertPoint:endPoint fromView:[shipView superview]];
-        CGRect relativeFrame = [[self myGridView] convertRect:[shipView frame] fromView:[[self myGridView] superview]];
+        CGRect relativeFrame = [[self myGridView] convertRect:[shipView frame] fromView:[shipView superview]];
         
         if (CGRectContainsPoint([[self myGridView] bounds], relativeEndPoint)) {
             
@@ -381,8 +380,7 @@
             CGPoint translation = CGPointMake((newPoint.x - relativeEndPoint.x), (newPoint.y - relativeEndPoint.y));
             CGRect checkFrame = CGRectMake(relativeFrame.origin.x + translation.x, relativeFrame.origin.y + translation.y, relativeFrame.size.width, relativeFrame.size.height);
             
-            CGRect myGridFrame = [[self myGridView] frame];
-            myGridFrame = [[self myGridView] convertRect:myGridFrame fromView:[self view]];
+            CGRect myGridFrame = [[self myGridView] bounds];
             
             if (!CGRectContainsRect(myGridFrame, checkFrame)) {
                 return NO;
@@ -443,8 +441,7 @@
             CGRect frameRect = [shipView frame];
             CGRect checkFrame = CGRectMake(frameRect.origin.x + translation.x, frameRect.origin.y + translation.y, frameRect.size.width, frameRect.size.height);
             
-            CGRect myGridFrame = [[self myGridView] frame];
-            myGridFrame = [[self myGridView] convertRect:myGridFrame fromView:[self view]];
+            CGRect myGridFrame = [[self myGridView] bounds];
             
             if (!CGRectContainsRect(myGridFrame, checkFrame)) {
                 return NO;
@@ -569,6 +566,7 @@
     targetCoordString = [targetCoordString stringByAppendingString:[NSString stringWithFormat:@"%d", yIndex + 1]];
 
     [[self targetCoordLabel] setText:targetCoordString];
+    [[self readyButton] setTitle:@"SHOOT!" forState:UIControlStateNormal];
 }
 
 
@@ -576,49 +574,74 @@
 
 - (void)gameWaitingForClientsReady:(Game *)game
 {
-	self.centerLabel.text = NSLocalizedString(@"Waiting for other players...", @"Status text: waiting for clients");
+	self.waitViewLabel.text = NSLocalizedString(@"Waiting for syncing with guest", @"Status text: waiting for client");
+    [[self view] addSubview:[self waitView]];
+    [[self view] bringSubviewToFront:[self waitView]];
 }
 
 - (void)gameWaitingForServerReady:(Game *)game
 {
-	self.centerLabel.text = NSLocalizedString(@"Waiting for game to start...", @"Status text: waiting for server");
+	self.waitViewLabel.text = NSLocalizedString(@"Waiting for host to start the game", @"Status text: waiting for server");
+    [[self view] addSubview:[self waitView]];
+    [[self view] bringSubviewToFront:[self waitView]];
 }
 
 - (void)gameWaitForShipTargeting
 {
     [[self targetCoordLabel] setText:@""];
+
+    if ([[[self turnInfoLabel] text] isEqualToString:@"Turn Info Label"]) {
+        [[self turnInfoLabel] setText:@""];
+    }
+
     [[self readyButton] setEnabled:NO];
+    [[self readyButton] setTitle:@"Wait" forState:UIControlStateNormal];
     
-    self.centerLabel.text = NSLocalizedString(@"Waiting opponent for shooting", @"Status text: Empty field");
+    self.centerLabel.text = NSLocalizedString(@"Waiting for opponent to shoot", @"Status text: waiting for shooting");
 }
 
 - (void)gameShipPlacementDidBegin
 {
     self.centerLabel.text = NSLocalizedString(@"Place your ships", @"Status text: placement began");
+    [[self turnInfoLabel] setText:@""];
+
+    [[self waitView] removeFromSuperview];
 }
 
 - (void)gameShipPlacementDidEnd
 {
-    self.centerLabel.text = NSLocalizedString(@"Waiting for other player to be ready", @"Status text: placement ended");
+    self.centerLabel.text = NSLocalizedString(@"Waiting for opponent to be ready", @"Status text: placement ended");
+
+    [[self readyButton] setEnabled:NO];
+    [[self readyButton] setTitle:@"Wait" forState:UIControlStateNormal];
+}
+
+- (void)gameShipPlacementOpponentReady
+{
+    [[self turnInfoLabel] setText:@"Opponent is ready"];
+    [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
 }
 
 - (void)gameShipTargetingDidBegin
 {
-    //TODO: Make game grid enabled for targeting
-    
+    // Make game grid enabled for targeting
     NSLog(@"ship targeting began");
+    
+    self.centerLabel.text = NSLocalizedString(@"Choose a target coordinate", @"Status text: targeting began");    
     
     [[self targetCoordLabel] setText:@""];
     [[self readyButton] setEnabled:YES];
-    [[self readyButton] setTitle:@"Shoot" forState:UIControlStateNormal];
+    [[self readyButton] setTitle:@"Choose" forState:UIControlStateNormal];
     
-    self.centerLabel.text = NSLocalizedString(@"Choose a target coordinate", @"Status text: targeting began");
+    [[self targetGridView] addGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];
 }
 
 - (void)gameShipTargetingDidEnd
 {
-    //TODO: Make game grid disabled for targeting
+    // Make game grid disabled for targeting
     NSLog(@"ship targeting ended");
+    
+    [[self targetGridView] removeGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];
 }
 
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason

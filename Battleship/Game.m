@@ -387,7 +387,8 @@
         case PacketTypeClientPlacementReady:
             if (_gameState == GameStatePlacing) {
                 
-                //TODO: Just show that client is ready to begin
+                // Just show that client is ready to begin
+                [[self delegate] gameShipPlacementOpponentReady];
             }
             
             if (_gameState == GameStateWaitingForReady) {
@@ -428,7 +429,7 @@
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"host"]) {
                 _gameState =GameStatePlaying;
                 
-                //TODO: Start choosing target
+                // Start choosing target
                 [self startShipTargeting];
             }
             
@@ -482,7 +483,8 @@
         case PacketTypeServerPlacementReady:
             if (_gameState == GameStatePlacing) {
                 
-                //TODO: Just show that server is ready to begin
+                // Just show that server is ready to begin
+                [[self delegate] gameShipPlacementOpponentReady];                
             }
             
             if (_gameState == GameStateWaitingForReady) {
@@ -525,7 +527,7 @@
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
                 _gameState = GameStatePlaying;
                 
-                //TODO: Start choosing target
+                // Start choosing target
                 [self startShipTargeting];
             }
             
