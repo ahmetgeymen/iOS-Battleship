@@ -19,6 +19,7 @@
 		BA8B77DD174ECE880054A361 /* ShipView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77DC174ECE880054A361 /* ShipView.m */; };
 		BA8B77E0174ED0D60054A361 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77DF174ED0D60054A361 /* Ship.m */; };
 		BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */; };
+		BAAFD7351754073800A93F42 /* GameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAAFD7331754073800A93F42 /* GameView.xib */; };
 		BABDC71F17502EA30024B7F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABDC71E17502EA30024B7F5 /* QuartzCore.framework */; };
 		BAC368BB1732519300B20998 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368BA1732519300B20998 /* Player.m */; };
 		BAC368C61732A05400B20998 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368C51732A05400B20998 /* Packet.m */; };
@@ -57,6 +58,7 @@
 		BA8B77DF174ED0D60054A361 /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
 		BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
+		BAAFD7341754073800A93F42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Battleship/en.lproj/GameView.xib; sourceTree = "<group>"; };
 		BABDC71E17502EA30024B7F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BAC368B91732519300B20998 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		BAC368BA1732519300B20998 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				BAFFD96C1722159600B49BF2 /* Storyboard.storyboard */,
+				BAAFD7331754073800A93F42 /* GameView.xib */,
 				BAFFD95C1722122500B49BF2 /* AppDelegate.h */,
 				BAFFD95D1722122500B49BF2 /* AppDelegate.m */,
 				BA15438B17300FFB00608ADC /* Data Model */,
@@ -274,6 +277,7 @@
 				BAFFD96E1722159600B49BF2 /* Storyboard.storyboard in Resources */,
 				BA34CF0A1753AEDD00F10F0C /* icon-cross.png in Resources */,
 				BA34CF0B1753AEDD00F10F0C /* icon-cross@2x.png in Resources */,
+				BAAFD7351754073800A93F42 /* GameView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +308,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		BAAFD7331754073800A93F42 /* GameView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BAAFD7341754073800A93F42 /* en */,
+			);
+			name = GameView.xib;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		BAFFD9561722122500B49BF2 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

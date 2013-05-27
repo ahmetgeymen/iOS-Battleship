@@ -758,7 +758,7 @@
     if (result) {
         alertView = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"Game Ended, You Won", @"Client disconnected alert title")
-                                  message:NSLocalizedString(@"You were disconnected from the game.", @"Client disconnected alert message")
+                                  message:NSLocalizedString(@"Connection will close.", @"Client disconnected alert message")
                                   delegate:[self delegate]
                                   cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK")
                                   otherButtonTitles:nil];
@@ -766,7 +766,7 @@
     } else {
         alertView = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"Game Ended, You Lost", @"Client disconnected alert title")
-                                  message:NSLocalizedString(@"You were disconnected from the game.", @"Client disconnected alert message")
+                                  message:NSLocalizedString(@"Connection will close.", @"Client disconnected alert message")
                                   delegate:[self delegate]
                                   cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK")
                                   otherButtonTitles:nil];

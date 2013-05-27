@@ -55,7 +55,7 @@
 
 - (void)startGameWithBlock:(void (^)(Game *))block
 {
-    GameViewController *gameViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"GameViewController"];
+   GameViewController *gameViewController = [[GameViewController alloc] initWithNibName:@"GameView" bundle:nil];
 	gameViewController.delegate = self;
     
 	[self presentViewController:gameViewController animated:NO completion:^
@@ -96,9 +96,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self dismissViewControllerAnimated:NO completion:^{
-        [[self navigationController] popViewControllerAnimated:YES];
-    }];
+    if ([[alertView title] hasPrefix:@"Game Ended"]) {
+        [self dismissViewControllerAnimated:NO completion:^{
+            [[self navigationController] popViewControllerAnimated:YES];
+        }];
+    }
 }
 
 

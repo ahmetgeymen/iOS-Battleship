@@ -85,7 +85,7 @@
     // Identifying the target view with tag 3
     [targetView setTag:3];
     
-    [self insertSubview:targetView atIndex:0];
+    [self addSubview:targetView];
     
     [(GameViewController *)[self delegate] selectTargetAtPoint:point];
 }
