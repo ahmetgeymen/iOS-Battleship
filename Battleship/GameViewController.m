@@ -34,15 +34,7 @@
     
     [[self targetGridView] setDelegate:self];
     [[self targetGridView] setTapGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:[self targetGridView] action:@selector(doTap:)]];
-    
-    //***************************
-    
-//    Game *game = [[Game alloc] init];
-//    [self setGame:game];
-//    
-//    Player *player = [[Player alloc] init];
-//    [[self game] setPlayer:player];
-
+    [[self targetGridView] addGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];    
 }
 
 - (void)didReceiveMemoryWarning
@@ -562,9 +554,10 @@
     NSString *letters = @"A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
     NSArray *lettersArray = [letters componentsSeparatedByString:@" "];
 
-    NSString *targetCoordString = [lettersArray objectAtIndex:xIndex];
-    targetCoordString = [targetCoordString stringByAppendingString:[NSString stringWithFormat:@"%d", yIndex + 1]];
+    NSString *targetCoordString = [lettersArray objectAtIndex:yIndex];
+    targetCoordString = [targetCoordString stringByAppendingString:[NSString stringWithFormat:@"%d", xIndex + 1]];
 
+    [[self turnInfoLabel] setText:@""];
     [[self targetCoordLabel] setText:targetCoordString];
     [[self readyButton] setTitle:@"SHOOT!" forState:UIControlStateNormal];
 }
@@ -586,19 +579,7 @@
     [[self view] bringSubviewToFront:[self waitView]];
 }
 
-- (void)gameWaitForShipTargeting
-{
-    [[self targetCoordLabel] setText:@""];
-
-    if ([[[self turnInfoLabel] text] isEqualToString:@"Turn Info Label"]) {
-        [[self turnInfoLabel] setText:@""];
-    }
-
-    [[self readyButton] setEnabled:NO];
-    [[self readyButton] setTitle:@"Wait" forState:UIControlStateNormal];
-    
-    self.centerLabel.text = NSLocalizedString(@"Waiting for opponent to shoot", @"Status text: waiting for shooting");
-}
+#pragma mark -
 
 - (void)gameShipPlacementDidBegin
 {
@@ -614,6 +595,13 @@
 
     [[self readyButton] setEnabled:NO];
     [[self readyButton] setTitle:@"Wait" forState:UIControlStateNormal];
+    
+    // Make all ships disabled for pan
+    [[self carrierShipView]     removeGestureRecognizer:[[[self carrierShipView]    gestureRecognizers] objectAtIndex:0]];
+    [[self battleshipShipView]  removeGestureRecognizer:[[[self battleshipShipView] gestureRecognizers] objectAtIndex:0]];
+    [[self cruiserShipView]     removeGestureRecognizer:[[[self cruiserShipView]    gestureRecognizers] objectAtIndex:0]];
+    [[self submarineShipView]   removeGestureRecognizer:[[[self submarineShipView]  gestureRecognizers] objectAtIndex:0]];
+    [[self patrolBoatShipView]  removeGestureRecognizer:[[[self patrolBoatShipView] gestureRecognizers] objectAtIndex:0]];
 }
 
 - (void)gameShipPlacementOpponentReady
@@ -622,31 +610,170 @@
     [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
 }
 
+#pragma mark -
+
 - (void)gameShipTargetingDidBegin
 {
     // Make game grid enabled for targeting
     NSLog(@"ship targeting began");
     
     self.centerLabel.text = NSLocalizedString(@"Choose a target coordinate", @"Status text: targeting began");    
-    
     [[self targetCoordLabel] setText:@""];
+    
     [[self readyButton] setEnabled:YES];
     [[self readyButton] setTitle:@"Choose" forState:UIControlStateNormal];
     
-    [[self targetGridView] addGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];
+    [[self targetGridView] setUserInteractionEnabled:YES];
 }
 
 - (void)gameShipTargetingDidEnd
 {
     // Make game grid disabled for targeting
     NSLog(@"ship targeting ended");
-    
-    [[self targetGridView] removeGestureRecognizer:[[self targetGridView] tapGestureRecognizer]];
+
+    [[self targetGridView] setUserInteractionEnabled:NO];
 }
+
+#pragma mark -
+
+- (void)gameWaitForShipTargeting
+{
+    [[self targetCoordLabel] setText:@""];
+    
+    if ([[[self turnInfoLabel] text] isEqualToString:@"Turn Info Label"]) {
+        [[self turnInfoLabel] setText:@""];
+    }
+    
+    [[self readyButton] setEnabled:NO];
+    [[self readyButton] setTitle:@"Wait" forState:UIControlStateNormal];
+    
+    self.centerLabel.text = NSLocalizedString(@"Waiting for opponent to shoot", @"Status text: waiting for shooting");
+}
+
+#pragma mark -
 
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason
 {
 	[self.delegate gameViewController:self didQuitWithReason:reason];
+}
+
+#pragma mark -
+
+- (void)gameShipProcessResultCode:(ResultCode)resultCode WithSegmentNumber:(NSNumber *)targetSegmentNumber
+{
+    NSInteger xIndex = [targetSegmentNumber integerValue] % 10;
+    NSInteger yIndex = [targetSegmentNumber integerValue] / 10;
+    
+    if (resultCode >= ResultCodeHit && resultCode != ResultCodeSankAllShips) {
+
+        UIImageView *hitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xIndex * CELLSIZE, yIndex * CELLSIZE, CELLSIZE, CELLSIZE)];
+        [hitImageView setImage:[UIImage imageNamed:@"icon-cross"]];
+        
+        [[self myGridView] addSubview:hitImageView];
+        
+        //********************************
+        
+        [[self turnInfoLabel] setText:@"Your ship has been hit"];
+        [[self turnInfoLabel] setTextColor:[UIColor orangeColor]];
+    }
+    
+    // End game because all ships have sunk. You lost the game
+    if (resultCode == ResultCodeSankAllShips) {
+        [[self game] endGame];
+    }
+}
+
+- (void)gameShipProcessResultCode:(ResultCode)resultCode
+{
+    UIView *segmentCellView = [[self targetGridView] viewWithTag:3];
+    
+    switch (resultCode) {
+        case ResultCodeMiss:
+            
+            [[self turnInfoLabel] setText:@"You missed"];
+            [[self turnInfoLabel] setTextColor:[UIColor orangeColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor lightGrayColor]];
+            [segmentCellView setTag:1];
+            break;
+            
+        case ResultCodeHit:
+            [[self turnInfoLabel] setText:@"You hit"];
+            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor redColor]];
+            [segmentCellView setTag:2];
+            break;
+            
+        case ResultCodeCarrierSank:
+            [[self turnInfoLabel] setText:@"Carrier sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor redColor]];
+            [segmentCellView setTag:2];
+            break;
+            
+        case ResultCodeBattleshipSank:
+            [[self turnInfoLabel] setText:@"Battleship sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor redColor]];
+            [segmentCellView setTag:2];
+            break;
+            
+        case ResultCodeCruiserSank:
+            [[self turnInfoLabel] setText:@"Cruiser sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor redColor]];
+            [segmentCellView setTag:2];
+            break;
+            
+        case ResultCodeSubmarineSank:
+            [[self turnInfoLabel] setText:@"Submarine sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor redColor]];
+            [segmentCellView setTag:2];
+            break;
+            
+        case ResultCodePatrolBoatSank:
+            [[self turnInfoLabel] setText:@"Patrol boat sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            
+            [segmentCellView setBackgroundColor:[UIColor redColor]];
+            [segmentCellView setTag:2];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+//TODO: End Game Display
+- (void)gameShipEndGameDidWin:(BOOL)result
+{
+    UIAlertView *alertView;
+    
+    if (result) {
+        alertView = [[UIAlertView alloc]
+                                  initWithTitle:NSLocalizedString(@"Game Ended, You Won", @"Client disconnected alert title")
+                                  message:NSLocalizedString(@"You were disconnected from the game.", @"Client disconnected alert message")
+                                  delegate:[self delegate]
+                                  cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK")
+                                  otherButtonTitles:nil];
+
+    } else {
+        alertView = [[UIAlertView alloc]
+                                  initWithTitle:NSLocalizedString(@"Game Ended, You Lost", @"Client disconnected alert title")
+                                  message:NSLocalizedString(@"You were disconnected from the game.", @"Client disconnected alert message")
+                                  delegate:[self delegate]
+                                  cancelButtonTitle:NSLocalizedString(@"OK", @"Button: OK")
+                                  otherButtonTitles:nil];
+
+    }
+    
+	[alertView show];
 }
 
 @end

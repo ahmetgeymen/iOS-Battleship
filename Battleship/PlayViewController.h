@@ -11,6 +11,6 @@
 #import "HostViewController.h"
 #import "GameViewController.h"
 
-@interface PlayViewController : UIViewController <JoinViewControllerDelegate, HostViewControllerDelegate, GameViewControllerDelegate>
+@interface PlayViewController : UIViewController <UIAlertViewDelegate, JoinViewControllerDelegate, HostViewControllerDelegate, GameViewControllerDelegate>
 
 @end

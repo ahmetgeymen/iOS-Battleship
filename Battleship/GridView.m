@@ -23,6 +23,8 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    [super drawRect:rect];
+    
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
     
     CGContextSaveGState(contextRef);
@@ -80,7 +82,7 @@
     UIView *targetView = [[UIView alloc] initWithFrame:CGRectMake(xIndex * CELLSIZE, yIndex * CELLSIZE, CELLSIZE, CELLSIZE)];
     [targetView setBackgroundColor:[UIColor orangeColor]];
 
-    // Identifying the target view with tag 0
+    // Identifying the target view with tag 3
     [targetView setTag:3];
     
     [self insertSubview:targetView atIndex:0];

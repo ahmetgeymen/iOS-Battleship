@@ -8,6 +8,7 @@
 
 #import "Game.h"
 #import "Packet.h"
+#import "Ship.h"
 
 
 @implementation Game
@@ -17,7 +18,6 @@
 	NSString *_localPlayerName;
     
     NSMutableDictionary *_players;
-
 }
 
 - (id)init
@@ -76,27 +76,19 @@
     [self setPlayer:player];
     
 	// Add a Player object for each client.
-//	int index = 0;
 	for (NSString *peerID in clients)
 	{
 		Player *player = [[Player alloc] init];
 		player.peerID = peerID;
         player.type = PlayerOpponent;
-		[_players setObject:player forKey:player.peerID];
-        
-//		if (index == 0)
-//			player.position = ([clients count] == 1) ? PlayerPositionTop : PlayerPositionLeft;
-//		else if (index == 1)
-//			player.position = PlayerPositionTop;
-//		else
-//			player.position = PlayerPositionRight;
-//        
-//		index++;
+		[_players setObject:player forKey:player.peerID];        
 	}
     
 	Packet *packet = [Packet packetWithType:PacketTypeSignInRequest];
 	[self sendPacketToAllClients:packet];
 }
+
+#pragma mark -
 
 - (void)startShipPlacement
 {
@@ -119,6 +111,8 @@
     [self.delegate gameShipPlacementDidEnd];
 }
 
+#pragma mark -
+
 - (void)startShipTargeting
 {
     [self.delegate gameShipTargetingDidBegin];
@@ -129,61 +123,176 @@
     [self.delegate gameWaitForShipTargeting];
 }
 
-//TODO: Should make request with a payload
-- (void)endShipTargetting:(NSString *)string
+- (void)endShipTargetting:(NSString *)targetCoord
 {
     Packet *packet;
 
-    if (!string) {
-        string = @"";
+    if (!targetCoord) {
+        targetCoord = @"";
     }
     
     if (self.isServer) {
         packet = [Packet packetWithType:PacketTypeServerShootRequest];
-        [[packet payload] setObject:string forKey:@"payload"];
+        [[packet payload] setObject:targetCoord forKey:@"targetCoord"];
         [self sendPacketToAllClients:packet];
     } else {
         packet = [Packet packetWithType:PacketTypeClientShootRequest];
-        [[packet payload] setObject:string forKey:@"payload"];        
+        [[packet payload] setObject:targetCoord forKey:@"targetCoord"];        
         [self sendPacketToServer:packet];
     }
     
     [self.delegate gameShipTargetingDidEnd];
 }
 
+#pragma mark -
+
 - (void)shootRequestFromClientWithPayload:(NSDictionary *)payload
 {
-    NSString *string = [payload objectForKey:@"payload"];
+    NSString *targetCoord = [payload objectForKey:@"targetCoord"];
     
-    NSLog(@"payload: %@", string);
+    NSLog(@"payload: %@", targetCoord);
+    
+    ResultCode resultCode = [self processShootRequestWithTargetCoordinate:targetCoord];
     
     Packet *packet = [Packet packetWithType:PacketTypeServerShootResponse];
-    [[packet payload] setObject:@"OK - FromServer" forKey:@"payload"];
+    [[packet payload] setObject:[NSNumber numberWithInteger:resultCode] forKey:@"resultCode"];
     [self sendPacketToAllClients:packet];
 }
 
 - (void)shootResponseFromClientWithPayload:(NSDictionary *)payload
 {
+    ResultCode resultCode = [[payload objectForKey:@"resultCode"] integerValue];
+    
+    [[self delegate] gameShipProcessResultCode:resultCode];
+    
     // Change game state to ready at the end
     _gameState = GameStateWaitingForReady;
 }
 
+#pragma mark -
+
 - (void)shootRequestFromServerWithPayload:(NSDictionary *)payload
 {
-    NSString *string = [payload objectForKey:@"payload"];
+    NSString *targetCoord = [payload objectForKey:@"targetCoord"];
     
-    NSLog(@"payload: %@", string);
+    NSLog(@"targetCoord: %@", targetCoord);
+    
+    ResultCode resultCode = [self processShootRequestWithTargetCoordinate:targetCoord];
     
     Packet *packet = [Packet packetWithType:PacketTypeClientShootResponse];
-    [[packet payload] setObject:@"OK - FromClient" forKey:@"payload"];
+    [[packet payload] setObject:[NSNumber numberWithInteger:resultCode] forKey:@"resultCode"];
     [self sendPacketToServer:packet];
 }
 
 - (void)shootResponseFromServerWithPayload:(NSDictionary *)payload
 {
+    ResultCode resultCode = [[payload objectForKey:@"resultCode"] integerValue];
+    
+    [[self delegate] gameShipProcessResultCode:resultCode];
+    
     // Change game state to ready at the end
     _gameState = GameStateWaitingForReady;
 }
+
+#pragma mark -
+
+- (ResultCode)processShootRequestWithTargetCoordinate:(NSString *)targetCoord
+{
+    NSString *xCoord = [targetCoord substringFromIndex:1];
+    NSString *yCoord = [targetCoord substringToIndex:1];
+    
+    NSInteger xIndex = [xCoord integerValue] - 1;
+    
+    NSString *letters = @"A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
+    NSArray *lettersArray = [letters componentsSeparatedByString:@" "];
+    NSInteger yIndex = [lettersArray indexOfObject:yCoord];
+    
+    NSNumber *targetSegmentNumber = [NSNumber numberWithInteger:(yIndex * 10) + xIndex];
+    
+    //***************************
+    
+    ResultCode resultCode = ResultCodeMiss;
+    
+    for (Ship *ship in [[self player] ships])
+    {
+        for (NSNumber *segmentNumber in [ship segments]) {
+
+            // Ship gets a hit
+            if ([segmentNumber integerValue] == [targetSegmentNumber integerValue]) {
+
+                [[ship hitSegments] addObject:targetSegmentNumber];
+                resultCode = ResultCodeHit;
+                
+                // Ship also sinks
+                if ([[ship hitSegments] count] == [ship lenght])
+                {    
+                    switch ([ship type]) {
+                        case ShipTypeCarrier:
+                            resultCode = ResultCodeCarrierSank;
+                            break;
+                            
+                        case ShipTypeBattleship:
+                            resultCode = ResultCodeBattleshipSank;
+                            break;
+                            
+                        case ShipTypeCruiser:
+                            resultCode = ResultCodeCruiserSank;
+                            break;
+                            
+                        case ShipTypeSubmarine:
+                            resultCode = ResultCodeSubmarineSank;
+                            break;
+                            
+                        case ShipTypePatrolBoat:
+                            resultCode = ResultCodePatrolBoatSank;
+                            break;
+                    }
+                }
+                
+                break;
+            }
+        }
+    }
+    
+    //*********************************
+    
+    
+    // Check if all ships have sunk
+    NSInteger totalHitSegment = 0;
+    for (Ship *ship in [[self player] ships]) {
+        totalHitSegment = totalHitSegment + [[ship hitSegments] count];
+    }
+    
+    if (totalHitSegment == 17) {
+        resultCode = ResultCodeSankAllShips;
+    }
+    
+    //*********************************    
+    
+    // Update display if any ship get hit
+    [[self delegate] gameShipProcessResultCode:resultCode WithSegmentNumber:targetSegmentNumber];
+
+
+    return resultCode;
+}
+
+#pragma mark -
+
+- (void)endGame
+{
+    // Sender of this message is the player who lost. So it sends its GameViewController to show a display about defeat.
+    //Also sends signal to opponent to inform about victory.
+    if (self.isServer) {
+        Packet *packet = [Packet packetWithType:PacketTypeEndGame];
+        [[self delegate] gameShipEndGameDidWin:NO];
+        [self sendPacketToAllClients:packet];
+    } else {
+        Packet *packet = [Packet packetWithType:PacketTypeEndGame];
+        [[self delegate] gameShipEndGameDidWin:NO];        
+        [self sendPacketToServer:packet];
+    }
+}
+
 
 - (void)quitGameWithReason:(QuitReason)reason
 {
@@ -216,21 +325,7 @@
 #pragma mark - Networking
 
 - (void)sendPacketToAllClients:(Packet *)packet
-{
-//	if ([self isSinglePlayerGame])
-//		return;
-    
-	// If packet numbering is enabled, each packet that we send out gets a
-	// unique number that keeps increasing. This is used to ignore packets
-	// that arrive out-of-order.
-//	if (packet.packetNumber != -1)
-//		packet.packetNumber = _sendPacketNumber++;
-    
-//	[_players enumerateKeysAndObjectsUsingBlock:^(id key, Player *obj, BOOL *stop)
-//     {
-//         obj.receivedResponse = [_session.peerID isEqualToString:obj.peerID];
-//     }];
-    
+{   
 	GKSendDataMode dataMode = packet.sendReliably ? GKSendDataReliable : GKSendDataUnreliable;
     
 	NSData *data = [packet data];
@@ -275,7 +370,6 @@
 	{
 		if (self.isServer)
 		{
-//			[self clientDidDisconnect:peerID redistributedCards:nil];
 		}
 		else if ([peerID isEqualToString:_serverPeerID])
 		{
@@ -334,10 +428,6 @@
 		return;
 	}
     
-#ifdef DEBUG
-	NSLog(@"Game: receive data from peer: %@, packetType: %u, length: %d", peerID, packet.packetType, [data length]);
-#endif
-    
 	Player *player = [self playerWithPeerID:peerID];
 //	if (player != nil)
 //	{
@@ -359,7 +449,6 @@
 
 - (void)serverReceivedPacket:(Packet *)packet fromPlayer:(Player *)player
 {
-    //TODO:
     switch (packet.packetType)
     {
         case PacketTypeSignInResponse:
@@ -369,7 +458,6 @@
                 Packet *packet = [Packet packetWithType:PacketTypeServerReady];
                 [self sendPacketToAllClients:packet];
             }
-            
             break;
             
         case PacketTypeClientReady:
@@ -381,7 +469,6 @@
                 
                 [self startShipPlacement];
             }
-            
             break;
             
         case PacketTypeClientPlacementReady:
@@ -390,7 +477,6 @@
                 // Just show that client is ready to begin
                 [[self delegate] gameShipPlacementOpponentReady];
             }
-            
             if (_gameState == GameStateWaitingForReady) {
                 _gameState = GameStatePlaying;
                 
@@ -401,19 +487,14 @@
                 
                 [self sendPacketToAllClients:packet];
             }
-            
             break;
             
         case PacketTypeClientShootRequest:
-            //TODO: Take payload and give result in response
             [self shootRequestFromClientWithPayload:[packet payload]];
-            
             break;
             
         case PacketTypeClientShootResponse:
-            //TODO: Take payload and give result in response
             [self shootResponseFromClientWithPayload:[packet payload]];
-            
             [self waitShipTargeting];
             
             if (_gameState == GameStateWaitingForReady) {
@@ -422,21 +503,24 @@
                 
                 [self sendPacketToAllClients:packet];
             }
-            
             break;
             
         case PacketTypeActivatePlayer:
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"host"]) {
-                _gameState =GameStatePlaying;
+                _gameState = GameStatePlaying;
                 
                 // Start choosing target
                 [self startShipTargeting];
             }
-            
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
                 
                 //TODO: Just show the turn is on the host player
             }
+            break;
+            
+        case PacketTypeEndGame:
+            _gameState = GameStateGameOver;
+            [[self delegate] gameShipEndGameDidWin:YES];
             break;
             
         case PacketTypeClientQuit:
@@ -468,7 +552,6 @@
                 Packet *packet = [Packet packetWithType:PacketTypeClientReady];
                 [self sendPacketToServer:packet];
             }
-            
             break;
             
         case PacketTypeStartPlacement:
@@ -477,35 +560,25 @@
                 
                 [self startShipPlacement];
             }
-            
             break;
             
         case PacketTypeServerPlacementReady:
             if (_gameState == GameStatePlacing) {
-                
                 // Just show that server is ready to begin
                 [[self delegate] gameShipPlacementOpponentReady];                
             }
-            
             if (_gameState == GameStateWaitingForReady) {
-                
                 Packet *packet = [Packet packetWithType:PacketTypeClientPlacementReady];
                 [self sendPacketToServer:packet];
             }
-            
             break;
                         
         case PacketTypeServerShootRequest:
-            
-            //TODO: Take payload and give result in response
             [self shootRequestFromServerWithPayload:[packet payload]];
-            
             break;
             
         case PacketTypeServerShootResponse:
-            //TODO: Take payload and give result in response
             [self shootResponseFromServerWithPayload:[packet payload]];
-            
             [self waitShipTargeting];
             
             if (_gameState == GameStateWaitingForReady) {
@@ -514,7 +587,6 @@
                 
                 [self sendPacketToServer:packet];
             }
-            
             break;
             
         case PacketTypeActivatePlayer:
@@ -523,15 +595,18 @@
                 
                 [self waitShipTargeting];
             }
-            
             if ([[[packet payload] objectForKey:@"activePlayer"] isEqualToString:@"guest"]) {
                 _gameState = GameStatePlaying;
                 
                 // Start choosing target
                 [self startShipTargeting];
             }
+            break;
             
-            break;            
+        case PacketTypeEndGame:
+            _gameState = GameStateGameOver;
+            [[self delegate] gameShipEndGameDidWin:YES];
+            break;
             
         case PacketTypeServerQuit:
             [self quitGameWithReason:QuitReasonServerQuit];

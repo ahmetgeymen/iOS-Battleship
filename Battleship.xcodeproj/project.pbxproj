@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BA15438E173011A500608ADC /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA15438D173011A400608ADC /* GameViewController.m */; };
 		BA1543911730130F00608ADC /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1543901730130F00608ADC /* Game.m */; };
+		BA34CF0A1753AEDD00F10F0C /* icon-cross.png in Resources */ = {isa = PBXBuildFile; fileRef = BA34CF081753AEDD00F10F0C /* icon-cross.png */; };
+		BA34CF0B1753AEDD00F10F0C /* icon-cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA34CF091753AEDD00F10F0C /* icon-cross@2x.png */; };
 		BA592EEC1728A72200ED7E22 /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA592EEB1728A72200ED7E22 /* JoinViewController.m */; };
 		BA844B5C172C3FAB00CE53D6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA844B5B172C3FAB00CE53D6 /* GameKit.framework */; };
 		BA844B69172C643300CE53D6 /* MatchmakingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BA844B66172C643300CE53D6 /* MatchmakingClient.m */; };
@@ -38,6 +40,8 @@
 		BA15438D173011A400608ADC /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		BA15438F1730130F00608ADC /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		BA1543901730130F00608ADC /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		BA34CF081753AEDD00F10F0C /* icon-cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-cross.png"; sourceTree = "<group>"; };
+		BA34CF091753AEDD00F10F0C /* icon-cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-cross@2x.png"; sourceTree = "<group>"; };
 		BA592EEA1728A72200ED7E22 /* JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinViewController.h; sourceTree = "<group>"; };
 		BA592EEB1728A72200ED7E22 /* JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinViewController.m; sourceTree = "<group>"; };
 		BA844B5B172C3FAB00CE53D6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -103,6 +107,15 @@
 				BA8B77DF174ED0D60054A361 /* Ship.m */,
 			);
 			name = "Data Model";
+			sourceTree = "<group>";
+		};
+		BA34CF071753AEDD00F10F0C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA34CF081753AEDD00F10F0C /* icon-cross.png */,
+				BA34CF091753AEDD00F10F0C /* icon-cross@2x.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		BA844B63172C63F800CE53D6 /* Networking */ = {
@@ -184,6 +197,7 @@
 				BA844B64172C640F00CE53D6 /* View Controllers */,
 				BA844B63172C63F800CE53D6 /* Networking */,
 				BAFFD9541722122500B49BF2 /* Supporting Files */,
+				BA34CF071753AEDD00F10F0C /* Resources */,
 			);
 			path = Battleship;
 			sourceTree = "<group>";
@@ -258,6 +272,8 @@
 				BAFFD9621722122500B49BF2 /* Default@2x.png in Resources */,
 				BAFFD9641722122500B49BF2 /* Default-568h@2x.png in Resources */,
 				BAFFD96E1722159600B49BF2 /* Storyboard.storyboard in Resources */,
+				BA34CF0A1753AEDD00F10F0C /* icon-cross.png in Resources */,
+				BA34CF0B1753AEDD00F10F0C /* icon-cross@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

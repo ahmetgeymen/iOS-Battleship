@@ -28,6 +28,8 @@ typedef enum
     PacketTypeClientShootRequest,       // client to server
 	PacketTypeClientShootResponse,      // client to server
     
+    PacketTypeEndGame,                  // server to client & client to server
+    
 	PacketTypeServerQuit,               // server to client
 	PacketTypeClientQuit,               // client to server
 }

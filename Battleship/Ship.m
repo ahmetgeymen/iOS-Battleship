@@ -48,6 +48,7 @@
         }
 
         [self setSegments:[NSMutableArray array]];
+        [self setHitSegments:[NSMutableArray array]];
     }
     
 	return self;

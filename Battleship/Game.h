@@ -11,6 +11,19 @@
 
 @class Game;
 
+typedef enum
+{
+    ResultCodeMiss,
+    ResultCodeHit,
+    ResultCodeCarrierSank,
+    ResultCodeBattleshipSank,
+    ResultCodeCruiserSank,
+    ResultCodeSubmarineSank,
+    ResultCodePatrolBoatSank,
+    ResultCodeSankAllShips
+}
+ResultCode;
+
 @protocol GameDelegate <NSObject>
 
 - (void)gameWaitingForClientsReady:(Game *)game;  // server only
@@ -26,6 +39,11 @@
 - (void)gameWaitForShipTargeting;
 
 - (void)game:(Game *)game didQuitWithReason:(QuitReason)reason;
+
+- (void)gameShipProcessResultCode:(ResultCode)resultCode WithSegmentNumber:(NSNumber *)targetSegmentNumber;
+- (void)gameShipProcessResultCode:(ResultCode)resultCode;
+
+- (void)gameShipEndGameDidWin:(BOOL)result;
 
 @end
 
@@ -54,6 +72,8 @@ GameState;
 
 - (void)endShipPlacement;
 - (void)endShipTargetting:(NSString *)string;
+
+- (void)endGame;
 
 - (void)quitGameWithReason:(QuitReason)reason;
 

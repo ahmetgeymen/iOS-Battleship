@@ -94,6 +94,13 @@
 	[alertView show];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self dismissViewControllerAnimated:NO completion:^{
+        [[self navigationController] popViewControllerAnimated:YES];
+    }];
+}
+
 
 #pragma mark - *** JoinViewControllerDelegate ***
 

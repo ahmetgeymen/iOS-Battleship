@@ -23,6 +23,7 @@ ShipType;
 @property (nonatomic, assign)   ShipType        type;
 @property (nonatomic, assign)   NSInteger       lenght;
 @property (nonatomic, strong)   NSMutableArray  *segments;
+@property (nonatomic, strong)   NSMutableArray  *hitSegments;
 
 @property (nonatomic, assign)   CGRect    initialFrame;
 
