@@ -664,6 +664,16 @@
     NSInteger xIndex = [targetSegmentNumber integerValue] % 10;
     NSInteger yIndex = [targetSegmentNumber integerValue] / 10;
     
+    if (resultCode == ResultCodeMiss) {
+        [[self turnInfoLabel] setText:@"Opponent missed"];
+        [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
+        
+        UIView *missView = [[UIView alloc] initWithFrame:CGRectMake(xIndex * CELLSIZE, yIndex * CELLSIZE, CELLSIZE, CELLSIZE)];
+        [missView setBackgroundColor:[UIColor cyanColor]];
+        
+        [[self myGridView] addSubview:missView];
+    }
+    
     if (resultCode >= ResultCodeHit && resultCode != ResultCodeSankAllShips) {
 
         UIImageView *hitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xIndex * CELLSIZE, yIndex * CELLSIZE, CELLSIZE, CELLSIZE)];
@@ -673,8 +683,37 @@
         
         //********************************
         
-        [[self turnInfoLabel] setText:@"Your ship has been hit"];
-        [[self turnInfoLabel] setTextColor:[UIColor orangeColor]];
+        [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+        
+        if (resultCode == ResultCodeHit) {
+            [[self turnInfoLabel] setText:@"Your ship has been hit"];
+        }
+        else {
+            switch (resultCode) {
+                case ResultCodeCarrierSank:
+                    [[self turnInfoLabel] setText:@"Your carrier has been sunk"];
+                    break;
+                    
+                case ResultCodeBattleshipSank:
+                    [[self turnInfoLabel] setText:@"Your battleship has been sunk"];
+                    break;
+                    
+                case ResultCodeCruiserSank:
+                    [[self turnInfoLabel] setText:@"Your crusier has been sunk"];
+                    break;
+                    
+                case ResultCodeSubmarineSank:
+                    [[self turnInfoLabel] setText:@"Your submarine has been sunk"];
+                    break;
+                    
+                case ResultCodePatrolBoatSank:
+                    [[self turnInfoLabel] setText:@"Your patrol boat has been sunk"];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
     }
     
     // End game because all ships have sunk. You lost the game
@@ -699,47 +738,47 @@
             
         case ResultCodeHit:
             [[self turnInfoLabel] setText:@"You hit"];
-            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
             [segmentCellView setTag:2];
             break;
             
         case ResultCodeCarrierSank:
-            [[self turnInfoLabel] setText:@"Carrier sunk"];
-            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            [[self turnInfoLabel] setText:@"Opponent carrier sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
             [segmentCellView setTag:2];
             break;
             
         case ResultCodeBattleshipSank:
-            [[self turnInfoLabel] setText:@"Battleship sunk"];
-            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            [[self turnInfoLabel] setText:@"Opponent cattleship sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
             [segmentCellView setTag:2];
             break;
             
         case ResultCodeCruiserSank:
-            [[self turnInfoLabel] setText:@"Cruiser sunk"];
-            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            [[self turnInfoLabel] setText:@"Opponent cruiser sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
             [segmentCellView setTag:2];
             break;
             
         case ResultCodeSubmarineSank:
-            [[self turnInfoLabel] setText:@"Submarine sunk"];
-            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            [[self turnInfoLabel] setText:@"Opponent submarine sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
             [segmentCellView setTag:2];
             break;
             
         case ResultCodePatrolBoatSank:
-            [[self turnInfoLabel] setText:@"Patrol boat sunk"];
-            [[self turnInfoLabel] setTextColor:[UIColor redColor]];
+            [[self turnInfoLabel] setText:@"Opponent patrol boat sunk"];
+            [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
             [segmentCellView setTag:2];
