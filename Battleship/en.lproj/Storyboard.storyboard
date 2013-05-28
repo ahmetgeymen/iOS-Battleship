@@ -131,32 +131,44 @@
         <!--View Controller - Rules-->
         <scene sceneID="DTT-i2-LuY">
             <objects>
-                <viewController id="5ZZ-a6-vzR" userLabel="View Controller - Rules" sceneMemberID="viewController">
+                <viewController id="5ZZ-a6-vzR" userLabel="View Controller - Rules" customClass="RulesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fs9-CP-Fwv">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rules" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tO6-9I-uWM">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rules &amp; Instructions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tO6-9I-uWM">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="fc7-XE-asf"/>
+                                    <constraint firstAttribute="width" constant="250" id="AsW-iz-VVO"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vwe-DH-gcF">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="693" id="H4t-NT-65Z"/>
+                                    <constraint firstAttribute="height" constant="500" id="Ify-IL-OX9"/>
+                                </constraints>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tO6-9I-uWM" firstAttribute="top" secondItem="fs9-CP-Fwv" secondAttribute="top" constant="126" id="4gl-K8-CZQ"/>
-                            <constraint firstItem="tO6-9I-uWM" firstAttribute="leading" secondItem="fs9-CP-Fwv" secondAttribute="leading" constant="166" id="82P-Om-MIc"/>
+                            <constraint firstItem="Vwe-DH-gcF" firstAttribute="centerX" secondItem="fs9-CP-Fwv" secondAttribute="centerX" type="default" id="0Ln-Oc-Or0"/>
+                            <constraint firstItem="Vwe-DH-gcF" firstAttribute="top" secondItem="tO6-9I-uWM" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="2qy-Bl-Iew"/>
+                            <constraint firstItem="tO6-9I-uWM" firstAttribute="top" secondItem="fs9-CP-Fwv" secondAttribute="top" constant="87" id="A5u-IA-yO6"/>
+                            <constraint firstItem="Vwe-DH-gcF" firstAttribute="leading" secondItem="tO6-9I-uWM" secondAttribute="leading" type="default" id="EHa-iI-jKJ"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="pdh-gl-g9d"/>
+                    <connections>
+                        <outlet property="webView" destination="Vwe-DH-gcF" id="UMy-td-TCF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ial-nC-Vk1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1066" y="-762"/>
+            <point key="canvasLocation" x="-1077" y="-916"/>
         </scene>
         <!--View Controller - Host-->
         <scene sceneID="Dbj-0X-tKz">
@@ -355,29 +367,6 @@
             <point key="canvasLocation" x="366" y="-1441"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="HostViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HostViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="startAction:"/>
-                <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="JoinViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JoinViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="waitView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="PlayViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
