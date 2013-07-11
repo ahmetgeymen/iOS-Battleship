@@ -13,4 +13,6 @@
 
 @interface PlayViewController : UIViewController <UIAlertViewDelegate, JoinViewControllerDelegate, HostViewControllerDelegate, GameViewControllerDelegate>
 
+- (IBAction)loadGameScreen:(id)sender;
+
 @end

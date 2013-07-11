@@ -11,4 +11,6 @@
 
 @interface ShipView : UIView
 
+@property (assign) BOOL isRotated;
+
 @end

@@ -49,7 +49,7 @@
 - (IBAction)pressQuitButton:(id)sender;
 
 - (IBAction)shipGesturePan:(id)sender;
-- (IBAction)shipGestureRotate:(id)sender;
+- (IBAction)shipGestureLongPress:(id)sender;
 
 - (void)selectTargetAtPoint:(CGPoint)point;
 

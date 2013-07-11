@@ -18,6 +18,7 @@
     CGRect insetRect = CGRectInset([self frame], 0, 5);
     [[self layer] setFrame:insetRect];
     
+    [self setIsRotated:NO];
 }
 
 @end

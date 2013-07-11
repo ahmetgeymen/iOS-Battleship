@@ -54,8 +54,8 @@
         isShipRotated = YES;
     }
     
-    NSInteger xIndex = [shipView frame].origin.x / 45;
-    NSInteger yIndex = [shipView frame].origin.y / 45;
+    NSInteger xIndex = [shipView frame].origin.x / CELLSIZE;
+    NSInteger yIndex = [shipView frame].origin.y / CELLSIZE;
     
     NSInteger firstSegment = yIndex * 10 + xIndex;
     
@@ -329,8 +329,9 @@
 
 #pragma mark - *** View Customizations ***
 
-- (BOOL)panShipView:(UIView *)shipView fromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint
+- (BOOL)panShipView:(UIView *)shipView toPoint:(CGPoint)endPoint
 {
+    // If the ship is not positioned on the grid before
     if (![[[self myGridView] subviews] containsObject:shipView]) {
 
         CGPoint relativeEndPoint = [[self myGridView] convertPoint:endPoint fromView:[shipView superview]];
@@ -359,12 +360,17 @@
             
             // Ship is not rotated
             if (shipView.bounds.size.width > shipView.bounds.size.height) {
-                odd = fmod(shipView.bounds.size.width / 45, 2) == 1;
+                odd = fmod(shipView.bounds.size.width / CELLSIZE, 2) == 1;
             } else {
-                odd = fmod(shipView.bounds.size.height / 45, 2) == 1;
+                odd = fmod(shipView.bounds.size.height / CELLSIZE, 2) == 1;
             }
             
-            CGPoint newPoint = [self nearestPoint:relativeEndPoint isOdd:odd];
+            BOOL rotated = NO;
+            if (shipView.frame.size.width < shipView.frame.size.height) {
+                rotated = YES;
+            }
+            
+            CGPoint newPoint = [self nearestPoint:relativeEndPoint isOdd:odd andRotated:rotated];
             
             //***************************
             
@@ -396,6 +402,7 @@
         }
     }
 
+    // If the ship is positioned on the grid before
     else {
         
         if (CGRectContainsPoint([[self myGridView] bounds], endPoint)) {
@@ -405,12 +412,17 @@
             
             // Ship is not rotated
             if (shipView.bounds.size.width > shipView.bounds.size.height) {
-                odd = fmod(shipView.bounds.size.width / 45, 2) == 1;
+                odd = fmod(shipView.bounds.size.width / CELLSIZE, 2) == 1;
             } else {
-                odd = fmod(shipView.bounds.size.height / 45, 2) == 1;
+                odd = fmod(shipView.bounds.size.height / CELLSIZE, 2) == 1;
             }
             
-            CGPoint newPoint = [self nearestPoint:endPoint isOdd:odd];
+            BOOL rotated = NO;
+            if (shipView.frame.size.width < shipView.frame.size.height) {
+                rotated = YES;
+            }
+            
+            CGPoint newPoint = [self nearestPoint:endPoint isOdd:odd andRotated:rotated];
             
             // Check if overlap with another ship
             BOOL isOverlapping = NO;
@@ -453,27 +465,47 @@
     return NO;
 }
 
-- (CGPoint)nearestPoint:(CGPoint)point isOdd:(BOOL)odd;
+- (CGPoint)nearestPoint:(CGPoint)point isOdd:(BOOL)odd andRotated:(BOOL)rotated;
 {    
     CGPoint newPoint;
     
-    NSInteger xIndex = point.x / 45;
-    NSInteger yIndex = point.y / 45;
+    NSInteger xIndex = point.x / CELLSIZE;
+    NSInteger yIndex = point.y / CELLSIZE;
 
-    if (odd) {
-        newPoint.x = xIndex * 45 + (45 / 2.0);
-        newPoint.y = yIndex * 45 + (45 / 2.0);
-        
-    } else {
-
-        // x coordinate
-        if (point.x - (xIndex * 45) < (45 / 2.0)) {
-            newPoint.x = xIndex * 45;
+    if (!rotated)
+    {
+        if (odd) {
+            newPoint.x = xIndex * CELLSIZE + (CELLSIZE / 2.0);
+            newPoint.y = yIndex * CELLSIZE + (CELLSIZE / 2.0);
+            
         } else {
-            newPoint.x = (xIndex + 1) * 45;
+            
+            // x coordinate
+            if (point.x - (xIndex * CELLSIZE) < (CELLSIZE / 2.0)) {
+                newPoint.x = xIndex * CELLSIZE;
+            } else {
+                newPoint.x = (xIndex + 1) * CELLSIZE;
+            }
+            
+            newPoint.y = yIndex * CELLSIZE + (CELLSIZE / 2.0);
         }
-        
-        newPoint.y = yIndex * 45 + (45 / 2.0);
+
+    } else {
+        if (odd) {
+            newPoint.x = xIndex * CELLSIZE + (CELLSIZE / 2.0);
+            newPoint.y = yIndex * CELLSIZE + (CELLSIZE / 2.0);
+
+        } else {
+
+            newPoint.x = xIndex * CELLSIZE + (CELLSIZE / 2.0);
+            
+            // y coordinate
+            if (point.y - (yIndex * CELLSIZE) < (CELLSIZE / 2.0)) {
+                newPoint.y = yIndex * CELLSIZE;
+            } else {
+                newPoint.y = (yIndex + 1) * CELLSIZE;
+            }
+        }
     }
 
     return newPoint;
@@ -496,6 +528,12 @@
 }
 
 - (IBAction)pressQuitButton:(id)sender {
+    
+    if (![self game]) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
     
     [[self game] quitGameWithReason:QuitReasonUserQuit];
 }
@@ -526,7 +564,7 @@
 
         panEndPoint = shipView.center;
 
-        if (![self panShipView:shipView fromPoint:panStartPoint toPoint:panEndPoint]) {
+        if (![self panShipView:shipView toPoint:panEndPoint]) {
             [UIView animateWithDuration:0.5 animations:^{
                 [shipView setCenter:panStartPoint];
             }];
@@ -539,10 +577,81 @@
     }
 }
 
-- (IBAction)shipGestureRotate:(UIRotationGestureRecognizer *)recognizer
+- (IBAction)shipGestureLongPress:(UILongPressGestureRecognizer *)recognizer
 {
-    NSLog(@"ship Rotate");    
+    ShipView *shipView = (ShipView *)[recognizer view];
+    
+    if ([recognizer state] == UIGestureRecognizerStateBegan) {
+        panStartPoint = [shipView center];
+    }
+    
+    if ([recognizer state] == UIGestureRecognizerStateBegan) {
+        
+        CGAffineTransform transform = CGAffineTransformIdentity;
+        
+        if (![shipView isRotated]) {
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+        } else {
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+        }
+        
+        CGRect newFrame = CGRectApplyAffineTransform([shipView frame], transform);
+        [shipView setFrame:newFrame];
+ 
+        NSLog(@"ship Rotate");
+        
+        [shipView setIsRotated:![shipView isRotated]];
+        
+        if ([[shipView superview] isEqual:[self view]]) {
+            [shipView setCenter:[recognizer locationInView:[self view]]];
+        } else {
+            [shipView setCenter:[recognizer locationInView:[self myGridView]]];
+        }
+    }
+    
+    if ([recognizer state] == UIGestureRecognizerStateChanged) {
+        
+        // Get the translation of the gesture
+        if ([[shipView superview] isEqual:[self view]]) {
+            CGPoint point = [recognizer locationInView:[self view]];
+            shipView.center = point;
+            
+        } else {
+            CGPoint point = [recognizer locationInView:[self myGridView]];
+            shipView.center = point;
+        }
+    }
+    
+    if ([recognizer state] == UIGestureRecognizerStateEnded) {
+        
+        panEndPoint = shipView.center;
+        
+        if (![self panShipView:shipView toPoint:panEndPoint]) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+            
+                CGAffineTransform transform = CGAffineTransformIdentity;
+
+                if (![shipView isRotated]) {
+                    transform = CGAffineTransformRotate(transform, M_PI_2);
+                } else {
+                    transform = CGAffineTransformRotate(transform, -M_PI_2);
+                }
+                
+                CGRect newFrame = CGRectApplyAffineTransform([shipView frame], transform);
+                [shipView setFrame:newFrame];
+                
+                [shipView setCenter:panStartPoint];
+            }];
+        }
+        
+        // Save the ships segments as data model
+        else {
+            [self saveSegmentsForShip:shipView];
+        }
+    }
 }
+
 
 #pragma mark - *** GridViewDelegate ***
 

@@ -50,6 +50,16 @@
     }
 }
 
+- (IBAction)loadGameScreen:(id)sender
+{
+    GameViewController *gameViewController = [[GameViewController alloc] initWithNibName:@"GameView" bundle:nil];
+	gameViewController.delegate = self;
+
+    [self presentViewController:gameViewController animated:YES completion:^{
+        
+    }];
+}
+
 
 #pragma mark - *** Starting Game ***
 

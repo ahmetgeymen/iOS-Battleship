@@ -30,7 +30,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-ip-yXY">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="Nsd-44-mCy"/>
+                                    <constraint firstAttribute="width" constant="73" id="62L-jv-H22"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Play">
@@ -111,13 +111,28 @@
                                     <segue destination="PAW-9p-8Qb" kind="push" identifier="PushJoinViewController" id="hao-vZ-hew"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x8a-8m-mH9">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loadGameScreen:" destination="Gxc-PR-9FY" eventType="touchUpInside" id="UDL-Nh-Hf3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yrL-DD-1sL" firstAttribute="centerX" secondItem="w6u-PF-RFF" secondAttribute="centerX" type="default" id="1jt-bC-zOO"/>
                             <constraint firstAttribute="bottom" secondItem="yrL-DD-1sL" secondAttribute="bottom" constant="246" id="1mT-k5-xu1"/>
+                            <constraint firstAttribute="bottom" secondItem="x8a-8m-mH9" secondAttribute="bottom" constant="96" id="7vr-hr-ZUh"/>
                             <constraint firstItem="yrL-DD-1sL" firstAttribute="trailing" secondItem="qVj-aZ-9PF" secondAttribute="trailing" type="default" id="FwS-GJ-WQa"/>
                             <constraint firstItem="qVj-aZ-9PF" firstAttribute="top" secondItem="w6u-PF-RFF" secondAttribute="top" constant="246" id="KiV-Bh-WN3"/>
+                            <constraint firstItem="x8a-8m-mH9" firstAttribute="centerX" secondItem="w6u-PF-RFF" secondAttribute="centerX" type="default" id="c47-2o-luR"/>
+                            <constraint firstItem="x8a-8m-mH9" firstAttribute="centerX" secondItem="yrL-DD-1sL" secondAttribute="centerX" type="default" id="hCY-d8-iMu"/>
                             <constraint firstItem="yrL-DD-1sL" firstAttribute="leading" secondItem="qVj-aZ-9PF" secondAttribute="leading" type="default" id="r7U-Cb-eGe"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -367,6 +382,38 @@
             <point key="canvasLocation" x="366" y="-1441"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="HostViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HostViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="startAction:"/>
+                <relationship kind="outlet" name="startButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="JoinViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/JoinViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="waitView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="PlayViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loadGameScreen:"/>
+            </relationships>
+        </class>
+        <class className="RulesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RulesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

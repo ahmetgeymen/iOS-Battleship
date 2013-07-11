@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
 		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -15,7 +15,9 @@
 			<string>IBUIActivityIndicatorView</string>
 			<string>IBUIBarButtonItem</string>
 			<string>IBUIButton</string>
+			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
+			<string>IBUILongPressGestureRecognizer</string>
 			<string>IBUINavigationBar</string>
 			<string>IBUINavigationItem</string>
 			<string>IBUIPanGestureRecognizer</string>
@@ -155,7 +157,6 @@
 						<string key="NSFrame">{{720, 652}, {118, 40}}</string>
 						<reference key="NSSuperview" ref="65555347"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIEnabled">NO</bool>
@@ -1242,12 +1243,27 @@
 								<reference key="IBUIFont" ref="54980680"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 							</object>
+							<object class="IBUIImageView" id="637272403">
+								<reference key="NSNextResponder" ref="909212277"/>
+								<int key="NSvFlags">1316</int>
+								<string key="NSFrameSize">{225, 45}</string>
+								<reference key="NSSuperview" ref="909212277"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="111968467"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">170.png</string>
+								</object>
+							</object>
 						</array>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrame">{{49, 614}, {225, 45}}</string>
 						<reference key="NSSuperview" ref="65555347"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="111968467"/>
+						<reference key="NSNextKeyView" ref="637272403"/>
 						<reference key="IBUIBackgroundColor" ref="29473055"/>
 						<array key="IBUIGestureRecognizers" id="0"/>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -1418,6 +1434,11 @@
 			<object class="IBUIPanGestureRecognizer" id="1030607083"/>
 			<object class="IBUIPanGestureRecognizer" id="211555024"/>
 			<object class="IBUIPanGestureRecognizer" id="677293747"/>
+			<object class="IBUILongPressGestureRecognizer" id="855840346"/>
+			<object class="IBUILongPressGestureRecognizer" id="795339868"/>
+			<object class="IBUILongPressGestureRecognizer" id="573764736"/>
+			<object class="IBUILongPressGestureRecognizer" id="12511055"/>
+			<object class="IBUILongPressGestureRecognizer" id="661373892"/>
 			<object class="IBUIView" id="740391389">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">1320</int>
@@ -1449,7 +1470,7 @@
 						<reference key="NSNextResponder" ref="740391389"/>
 						<int key="NSvFlags">1320</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{376, 341}, {273, 21}}</string>
+						<string key="NSFrame">{{376, 363}, {273, 21}}</string>
 						<reference key="NSSuperview" ref="740391389"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="184057156"/>
@@ -1471,10 +1492,9 @@
 						<reference key="NSNextResponder" ref="740391389"/>
 						<int key="NSvFlags">1320</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{502, 370}, {20, 20}}</string>
+						<string key="NSFrame">{{502, 393}, {20, 20}}</string>
 						<reference key="NSSuperview" ref="740391389"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHidesWhenStopped">NO</bool>
@@ -1487,7 +1507,7 @@
 					</object>
 				</array>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
-				<string key="NSFrameSize">{1024, 704}</string>
+				<string key="NSFrameSize">{1024, 748}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1055140855"/>
@@ -1626,12 +1646,32 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
+						<reference key="source" ref="348467930"/>
+						<reference key="destination" ref="661373892"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">YES</bool>
+					</object>
+					<int key="connectionID">348</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="720379105"/>
 						<reference key="destination" ref="211555024"/>
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">YES</bool>
 					</object>
 					<int key="connectionID">312</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">gestureRecognizers</string>
+						<reference key="source" ref="720379105"/>
+						<reference key="destination" ref="12511055"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">YES</bool>
+					</object>
+					<int key="connectionID">347</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
@@ -1646,12 +1686,32 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
 						<string key="label">gestureRecognizers</string>
+						<reference key="source" ref="426508124"/>
+						<reference key="destination" ref="573764736"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">YES</bool>
+					</object>
+					<int key="connectionID">346</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">gestureRecognizers</string>
 						<reference key="source" ref="820492981"/>
 						<reference key="destination" ref="772044602"/>
 						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
 						<bool key="addsContentToExistingCollection">YES</bool>
 					</object>
 					<int key="connectionID">306</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">gestureRecognizers</string>
+						<reference key="source" ref="820492981"/>
+						<reference key="destination" ref="795339868"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">YES</bool>
+					</object>
+					<int key="connectionID">345</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1671,6 +1731,16 @@
 						<bool key="addsContentToExistingCollection">YES</bool>
 					</object>
 					<int key="connectionID">303</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletCollectionConnection" key="connection">
+						<string key="label">gestureRecognizers</string>
+						<reference key="source" ref="909212277"/>
+						<reference key="destination" ref="855840346"/>
+						<string key="cachedDesigntimeCollectionClassName">NSArray</string>
+						<bool key="addsContentToExistingCollection">YES</bool>
+					</object>
+					<int key="connectionID">344</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1727,6 +1797,46 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">327</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shipGestureLongPress:</string>
+						<reference key="source" ref="855840346"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">349</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shipGestureLongPress:</string>
+						<reference key="source" ref="795339868"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">350</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shipGestureLongPress:</string>
+						<reference key="source" ref="573764736"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">351</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shipGestureLongPress:</string>
+						<reference key="source" ref="12511055"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">352</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">shipGestureLongPress:</string>
+						<reference key="source" ref="661373892"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">353</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1845,6 +1955,7 @@
 						<reference key="object" ref="909212277"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="111968467"/>
+							<reference ref="637272403"/>
 						</array>
 						<reference key="parent" ref="65555347"/>
 						<string key="objectName">View - Carrier</string>
@@ -2277,6 +2388,41 @@
 						<reference key="object" ref="534277934"/>
 						<reference key="parent" ref="612014948"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">339</int>
+						<reference key="object" ref="855840346"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Long Press Gesture Recognizer - Carrier</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">340</int>
+						<reference key="object" ref="795339868"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Long Press Gesture Recognizer - Battleship</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">341</int>
+						<reference key="object" ref="573764736"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Long Press Gesture Recognizer - Cruiser</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">342</int>
+						<reference key="object" ref="12511055"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Long Press Gesture Recognizer - Submarine</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">343</int>
+						<reference key="object" ref="661373892"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Long Press Gesture Recognizer - Patrol Boat</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">354</int>
+						<reference key="object" ref="637272403"/>
+						<reference key="parent" ref="909212277"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -2377,12 +2523,18 @@
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<reference key="33.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="33.showNotes"/>
+				<string key="339.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<reference key="34.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="34.showNotes"/>
+				<string key="340.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="341.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="342.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="343.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<reference key="35.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="35.showNotes"/>
+				<string key="354.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<reference key="36.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="36.showNotes"/>
@@ -2504,7 +2656,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">338</int>
+			<int key="maxID">354</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2514,8 +2666,8 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="pressQuitButton:">id</string>
 						<string key="pressReadyButton:">id</string>
+						<string key="shipGestureLongPress:">id</string>
 						<string key="shipGesturePan:">id</string>
-						<string key="shipGestureRotate:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="pressQuitButton:">
@@ -2526,12 +2678,12 @@
 							<string key="name">pressReadyButton:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="shipGesturePan:">
-							<string key="name">shipGesturePan:</string>
+						<object class="IBActionInfo" key="shipGestureLongPress:">
+							<string key="name">shipGestureLongPress:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="shipGestureRotate:">
-							<string key="name">shipGestureRotate:</string>
+						<object class="IBActionInfo" key="shipGesturePan:">
+							<string key="name">shipGesturePan:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -2631,6 +2783,10 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">170.png</string>
+			<string key="NS.object.0">{170, 170}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
