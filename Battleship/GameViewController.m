@@ -551,7 +551,7 @@
     
     // Get the translation of the gesture
     CGPoint translation = [recognizer translationInView:[shipView superview]];
-    CGPoint effectiveTranslation = CGPointApplyAffineTransform(translation, [shipView transform]);
+    CGPoint effectiveTranslation = CGPointApplyAffineTransform(translation, CGAffineTransformIdentity);
     
     int newX = shipView.center.x + effectiveTranslation.x;
     int newY = shipView.center.y + effectiveTranslation.y;
@@ -587,20 +587,20 @@
     
     if ([recognizer state] == UIGestureRecognizerStateBegan) {
         
-        CGAffineTransform transform = CGAffineTransformIdentity;
-        
-        if (![shipView isRotated]) {
-            transform = CGAffineTransformRotate(transform, M_PI_2);
-        } else {
-            transform = CGAffineTransformRotate(transform, -M_PI_2);
-        }
-        
-        CGRect newFrame = CGRectApplyAffineTransform([shipView frame], transform);
-        [shipView setFrame:newFrame];
- 
-        NSLog(@"ship Rotate");
-        
-        [shipView setIsRotated:![shipView isRotated]];
+        // Rotate ship with animation
+        [UIView animateWithDuration:0.5 animations:^{
+
+            CGAffineTransform transform = [shipView transform];
+            
+            if (![shipView isRotated]) {
+                transform = CGAffineTransformRotate(transform, M_PI_2);
+            } else {
+                transform = CGAffineTransformIdentity;
+            }
+            
+            [shipView setTransform:transform];            
+            [shipView setIsRotated:![shipView isRotated]];
+        }];
         
         if ([[shipView superview] isEqual:[self view]]) {
             [shipView setCenter:[recognizer locationInView:[self view]]];
@@ -626,20 +626,21 @@
         
         panEndPoint = shipView.center;
         
+        // If panning on to end point is not successful
         if (![self panShipView:shipView toPoint:panEndPoint]) {
             
             [UIView animateWithDuration:0.5 animations:^{
             
-                CGAffineTransform transform = CGAffineTransformIdentity;
+                CGAffineTransform transform = [shipView transform];
 
                 if (![shipView isRotated]) {
                     transform = CGAffineTransformRotate(transform, M_PI_2);
                 } else {
-                    transform = CGAffineTransformRotate(transform, -M_PI_2);
+                    transform = CGAffineTransformIdentity;
                 }
-                
-                CGRect newFrame = CGRectApplyAffineTransform([shipView frame], transform);
-                [shipView setFrame:newFrame];
+
+                [shipView setTransform:transform];
+                [shipView setIsRotated:![shipView isRotated]];
                 
                 [shipView setCenter:panStartPoint];
             }];
