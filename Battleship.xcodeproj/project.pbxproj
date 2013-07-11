@@ -19,9 +19,8 @@
 		BA8B77DD174ECE880054A361 /* ShipView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77DC174ECE880054A361 /* ShipView.m */; };
 		BA8B77E0174ED0D60054A361 /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8B77DF174ED0D60054A361 /* Ship.m */; };
 		BA9C4778172C98EB00A2E0D6 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */; };
-		BA9DEB981756CEBD009C771F /* 170.png in Resources */ = {isa = PBXBuildFile; fileRef = BA9DEB971756CEBD009C771F /* 170.png */; };
+		BA9FEAB1178EACF90012DA5D /* Rules.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BA9FEAB0178EACF90012DA5D /* Rules.pdf */; };
 		BAA45F351754BFA900A92FD8 /* RulesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA45F341754BFA900A92FD8 /* RulesViewController.m */; };
-		BAA45F371754C38400A92FD8 /* Rules.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BAA45F361754C38400A92FD8 /* Rules.pdf */; };
 		BAAFD7351754073800A93F42 /* GameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAAFD7331754073800A93F42 /* GameView.xib */; };
 		BABDC71F17502EA30024B7F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABDC71E17502EA30024B7F5 /* QuartzCore.framework */; };
 		BAC368BB1732519300B20998 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC368BA1732519300B20998 /* Player.m */; };
@@ -61,10 +60,9 @@
 		BA8B77DF174ED0D60054A361 /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
 		BA9C4776172C98EB00A2E0D6 /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		BA9C4777172C98EB00A2E0D6 /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
-		BA9DEB971756CEBD009C771F /* 170.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 170.png; sourceTree = "<group>"; };
+		BA9FEAB0178EACF90012DA5D /* Rules.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Rules.pdf; sourceTree = "<group>"; };
 		BAA45F331754BFA900A92FD8 /* RulesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulesViewController.h; sourceTree = "<group>"; };
 		BAA45F341754BFA900A92FD8 /* RulesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RulesViewController.m; sourceTree = "<group>"; };
-		BAA45F361754C38400A92FD8 /* Rules.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Rules.pdf; sourceTree = "<group>"; };
 		BAAFD7341754073800A93F42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Battleship/en.lproj/GameView.xib; sourceTree = "<group>"; };
 		BABDC71E17502EA30024B7F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BAC368B91732519300B20998 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
@@ -121,8 +119,7 @@
 		BA34CF071753AEDD00F10F0C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA9DEB971756CEBD009C771F /* 170.png */,
-				BAA45F361754C38400A92FD8 /* Rules.pdf */,
+				BA9FEAB0178EACF90012DA5D /* Rules.pdf */,
 				BA34CF081753AEDD00F10F0C /* icon-cross.png */,
 				BA34CF091753AEDD00F10F0C /* icon-cross@2x.png */,
 			);
@@ -289,8 +286,7 @@
 				BA34CF0A1753AEDD00F10F0C /* icon-cross.png in Resources */,
 				BA34CF0B1753AEDD00F10F0C /* icon-cross@2x.png in Resources */,
 				BAAFD7351754073800A93F42 /* GameView.xib in Resources */,
-				BAA45F371754C38400A92FD8 /* Rules.pdf in Resources */,
-				BA9DEB981756CEBD009C771F /* 170.png in Resources */,
+				BA9FEAB1178EACF90012DA5D /* Rules.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -547,6 +547,13 @@
     
     if ([recognizer state] == UIGestureRecognizerStateBegan) {
         panStartPoint = [shipView center];
+        
+        // Bring ship in front of all other ships
+        if ([[shipView superview] isEqual:[self view]]) {
+            [[self view] bringSubviewToFront:shipView];
+        } else {
+            [[self myGridView] bringSubviewToFront:shipView];
+        }
     }
     
     // Get the translation of the gesture
@@ -602,10 +609,13 @@
             [shipView setIsRotated:![shipView isRotated]];
         }];
         
+        // Also bring ship in front of all other ships
         if ([[shipView superview] isEqual:[self view]]) {
             [shipView setCenter:[recognizer locationInView:[self view]]];
+            [[self view] bringSubviewToFront:shipView];
         } else {
             [shipView setCenter:[recognizer locationInView:[self myGridView]]];
+            [[self myGridView] bringSubviewToFront:shipView];
         }
     }
     
