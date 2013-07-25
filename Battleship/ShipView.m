@@ -12,12 +12,6 @@
 
 - (void)awakeFromNib
 {
-    [[self layer] setMasksToBounds:YES];
-    [[self layer] setCornerRadius:10];
-    
-    CGRect insetRect = CGRectInset([self frame], 0, 5);
-    [[self layer] setFrame:insetRect];
-    
     [self setIsRotated:NO];
 }
 

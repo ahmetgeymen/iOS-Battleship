@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA0E041917A1282200CAA462 /* Battleship.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E040F17A1282200CAA462 /* Battleship.png */; };
+		BA0E041A17A1282200CAA462 /* Battleship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041017A1282200CAA462 /* Battleship@2x.png */; };
+		BA0E041B17A1282200CAA462 /* Carrier.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041117A1282200CAA462 /* Carrier.png */; };
+		BA0E041C17A1282200CAA462 /* Carrier@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041217A1282200CAA462 /* Carrier@2x.png */; };
+		BA0E041D17A1282200CAA462 /* Cruiser.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041317A1282200CAA462 /* Cruiser.png */; };
+		BA0E041E17A1282200CAA462 /* Cruiser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041417A1282200CAA462 /* Cruiser@2x.png */; };
+		BA0E041F17A1282200CAA462 /* PatrolBoat.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041517A1282200CAA462 /* PatrolBoat.png */; };
+		BA0E042017A1282200CAA462 /* PatrolBoat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041617A1282200CAA462 /* PatrolBoat@2x.png */; };
+		BA0E042117A1282200CAA462 /* Submarine.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041717A1282200CAA462 /* Submarine.png */; };
+		BA0E042217A1282200CAA462 /* Submarine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA0E041817A1282200CAA462 /* Submarine@2x.png */; };
 		BA15438E173011A500608ADC /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA15438D173011A400608ADC /* GameViewController.m */; };
 		BA1543911730130F00608ADC /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = BA1543901730130F00608ADC /* Game.m */; };
 		BA34CF0A1753AEDD00F10F0C /* icon-cross.png in Resources */ = {isa = PBXBuildFile; fileRef = BA34CF081753AEDD00F10F0C /* icon-cross.png */; };
@@ -39,6 +49,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA0E040F17A1282200CAA462 /* Battleship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battleship.png; sourceTree = "<group>"; };
+		BA0E041017A1282200CAA462 /* Battleship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Battleship@2x.png"; sourceTree = "<group>"; };
+		BA0E041117A1282200CAA462 /* Carrier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Carrier.png; sourceTree = "<group>"; };
+		BA0E041217A1282200CAA462 /* Carrier@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Carrier@2x.png"; sourceTree = "<group>"; };
+		BA0E041317A1282200CAA462 /* Cruiser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cruiser.png; sourceTree = "<group>"; };
+		BA0E041417A1282200CAA462 /* Cruiser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cruiser@2x.png"; sourceTree = "<group>"; };
+		BA0E041517A1282200CAA462 /* PatrolBoat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PatrolBoat.png; sourceTree = "<group>"; };
+		BA0E041617A1282200CAA462 /* PatrolBoat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PatrolBoat@2x.png"; sourceTree = "<group>"; };
+		BA0E041717A1282200CAA462 /* Submarine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submarine.png; sourceTree = "<group>"; };
+		BA0E041817A1282200CAA462 /* Submarine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Submarine@2x.png"; sourceTree = "<group>"; };
 		BA15438C173011A400608ADC /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		BA15438D173011A400608ADC /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		BA15438F1730130F00608ADC /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
@@ -119,6 +139,16 @@
 		BA34CF071753AEDD00F10F0C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BA0E040F17A1282200CAA462 /* Battleship.png */,
+				BA0E041017A1282200CAA462 /* Battleship@2x.png */,
+				BA0E041117A1282200CAA462 /* Carrier.png */,
+				BA0E041217A1282200CAA462 /* Carrier@2x.png */,
+				BA0E041317A1282200CAA462 /* Cruiser.png */,
+				BA0E041417A1282200CAA462 /* Cruiser@2x.png */,
+				BA0E041517A1282200CAA462 /* PatrolBoat.png */,
+				BA0E041617A1282200CAA462 /* PatrolBoat@2x.png */,
+				BA0E041717A1282200CAA462 /* Submarine.png */,
+				BA0E041817A1282200CAA462 /* Submarine@2x.png */,
 				BA9FEAB0178EACF90012DA5D /* Rules.pdf */,
 				BA34CF081753AEDD00F10F0C /* icon-cross.png */,
 				BA34CF091753AEDD00F10F0C /* icon-cross@2x.png */,
@@ -287,6 +317,16 @@
 				BA34CF0B1753AEDD00F10F0C /* icon-cross@2x.png in Resources */,
 				BAAFD7351754073800A93F42 /* GameView.xib in Resources */,
 				BA9FEAB1178EACF90012DA5D /* Rules.pdf in Resources */,
+				BA0E041917A1282200CAA462 /* Battleship.png in Resources */,
+				BA0E041A17A1282200CAA462 /* Battleship@2x.png in Resources */,
+				BA0E041B17A1282200CAA462 /* Carrier.png in Resources */,
+				BA0E041C17A1282200CAA462 /* Carrier@2x.png in Resources */,
+				BA0E041D17A1282200CAA462 /* Cruiser.png in Resources */,
+				BA0E041E17A1282200CAA462 /* Cruiser@2x.png in Resources */,
+				BA0E041F17A1282200CAA462 /* PatrolBoat.png in Resources */,
+				BA0E042017A1282200CAA462 /* PatrolBoat@2x.png in Resources */,
+				BA0E042117A1282200CAA462 /* Submarine.png in Resources */,
+				BA0E042217A1282200CAA462 /* Submarine@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

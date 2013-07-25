@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface ShipView : UIView
+@interface ShipView : UIImageView
 
 @property (assign) BOOL isRotated;
 
