@@ -873,7 +873,7 @@
             break;
             
         case ResultCodeBattleshipSank:
-            [[self turnInfoLabel] setText:@"Opponent cattleship sunk"];
+            [[self turnInfoLabel] setText:@"Opponent battleship sunk"];
             [[self turnInfoLabel] setTextColor:[UIColor greenColor]];
             
             [segmentCellView setBackgroundColor:[UIColor redColor]];
@@ -909,7 +909,7 @@
     }
 }
 
-//TODO: End Game Display
+// End Game Display
 - (void)gameShipEndGameDidWin:(BOOL)result
 {
     UIAlertView *alertView;
